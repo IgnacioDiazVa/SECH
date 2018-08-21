@@ -31,13 +31,13 @@ public class Home extends javax.swing.JFrame {
     private void initComponents() {
 
         jpBarraHerramientas = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
+        lbAsamblea = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lbCrudSocio = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lbCategoria = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,13 +60,20 @@ public class Home extends javax.swing.JFrame {
         jpBarraHerramientas.setBackground(new java.awt.Color(3, 169, 244));
         jpBarraHerramientas.setForeground(new java.awt.Color(3, 169, 244));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/archivo.png"))); // NOI18N
+        lbAsamblea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/archivo.png"))); // NOI18N
+        lbAsamblea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/trabajo-en-equipo.png"))); // NOI18N
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/tiempo-es-dinero.png"))); // NOI18N
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (3).png"))); // NOI18N
+        lbCrudSocio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (3).png"))); // NOI18N
+        lbCrudSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbCrudSocio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbCrudSocioMouseClicked(evt);
+            }
+        });
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
 
@@ -78,9 +85,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(jpBarraHerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel14)
-                    .addComponent(jLabel13)
+                    .addComponent(lbCrudSocio)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel10)
+                    .addComponent(lbAsamblea)
                     .addComponent(jLabel11))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -88,13 +95,13 @@ public class Home extends javax.swing.JFrame {
             jpBarraHerramientasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpBarraHerramientasLayout.createSequentialGroup()
                 .addGap(37, 37, 37)
-                .addComponent(jLabel10)
+                .addComponent(lbAsamblea)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel12)
                 .addGap(48, 48, 48)
                 .addComponent(jLabel11)
                 .addGap(51, 51, 51)
-                .addComponent(jLabel13)
+                .addComponent(lbCrudSocio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addComponent(jLabel14)
                 .addContainerGap())
@@ -106,8 +113,13 @@ public class Home extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/certificado.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
+        lbCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/certificado.png"))); // NOI18N
+        lbCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbCategoriaMouseClicked(evt);
+            }
+        });
+        jPanel1.add(lbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/biblioteca.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 80, -1, -1));
@@ -200,6 +212,17 @@ public class Home extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_jLabel9MouseClicked
 
+    private void lbCrudSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCrudSocioMouseClicked
+        // TODO add your handling code here:
+        Crud crud = new Crud();
+        crud.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_lbCrudSocioMouseClicked
+
+    private void lbCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCategoriaMouseClicked
+       
+    }//GEN-LAST:event_lbCategoriaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -236,11 +259,8 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -257,5 +277,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JPanel jpBarraHerramientas;
+    public javax.swing.JLabel lbAsamblea;
+    private javax.swing.JLabel lbCategoria;
+    private javax.swing.JLabel lbCrudSocio;
     // End of variables declaration//GEN-END:variables
 }

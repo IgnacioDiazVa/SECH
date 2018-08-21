@@ -14,8 +14,12 @@ public class Crud extends javax.swing.JFrame {
     /**
      * Creates new form Crud
      */
+    int x, y;
     public Crud() {
+        
         initComponents();
+        this.setLocationRelativeTo(null);
+        jpnAgregar.setVisible(false);
     }
 
     /**
@@ -34,9 +38,71 @@ public class Crud extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        jpnAgregar = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        lbMinimizar = new javax.swing.JLabel();
+        lbCerrar = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        cmbSis = new javax.swing.JComboBox();
+        cmbCategoria = new javax.swing.JComboBox();
+        cmbFilial = new javax.swing.JComboBox();
+        cmbComuna = new javax.swing.JComboBox();
+        cmbRegion = new javax.swing.JComboBox();
+        txtAppPat = new javax.swing.JTextField();
+        txtNombres = new javax.swing.JTextField();
+        txtAppMat = new javax.swing.JTextField();
+        txtRut = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
+        txtNombreUniversidad = new javax.swing.JTextField();
+        txtSede = new javax.swing.JTextField();
+        txtAnio = new javax.swing.JTextField();
+        txtNomClinica = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtNumero = new javax.swing.JTextField();
+        txtPiso = new javax.swing.JTextField();
+        txtOficina = new javax.swing.JTextField();
+        txtReferencia = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        txtWeb = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel32 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        btnReestablecer = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
+        txtDigitoV = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        txtDia = new javax.swing.JTextField();
+        txtMes = new javax.swing.JTextField();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(3, 169, 244));
@@ -44,6 +110,11 @@ public class Crud extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(120, 680));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (2).png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (1).png"))); // NOI18N
 
@@ -52,6 +123,12 @@ public class Crud extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/calendario.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/flecha-izquierda-boton-de-teclado.png"))); // NOI18N
+        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
 
@@ -90,13 +167,301 @@ public class Crud extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 680));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 930, 680));
+        jpnAgregar.setBackground(new java.awt.Color(255, 255, 255));
+        jpnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        jpnAgregar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel7.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jLabel7MouseDragged(evt);
+            }
+        });
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel7MousePressed(evt);
+            }
+        });
+        jpnAgregar.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 50));
+
+        lbMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menos-linea-recta-horizontal.png"))); // NOI18N
+        lbMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbMinimizarMouseClicked(evt);
+            }
+        });
+        jpnAgregar.add(lbMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 0, 20, 30));
+
+        lbCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cruz (1).png"))); // NOI18N
+        lbCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbCerrarMouseClicked(evt);
+            }
+        });
+        jpnAgregar.add(lbCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 10, -1, -1));
+
+        jLabel8.setText("Nombre");
+        jpnAgregar.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        jLabel9.setText("Apellido Paterno");
+        jpnAgregar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        jLabel10.setText("Apellido Materno");
+        jpnAgregar.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
+
+        jLabel11.setText("Rut");
+        jpnAgregar.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        jLabel12.setText("Correo electrónico");
+        jpnAgregar.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, -1, -1));
+
+        jLabel13.setText("Celular");
+        jpnAgregar.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+
+        jLabel14.setText("SIS");
+        jpnAgregar.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+
+        jLabel15.setText("Categoría");
+        jpnAgregar.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, -1, -1));
+
+        jLabel16.setText("Nombre Universidad");
+        jpnAgregar.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
+
+        jLabel17.setText("Sede");
+        jpnAgregar.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, -1, -1));
+
+        jLabel18.setText("Año de ingreso");
+        jpnAgregar.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, -1, -1));
+
+        jLabel19.setText("Nombre Clínica");
+        jpnAgregar.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+
+        jLabel20.setText("Dirección");
+        jpnAgregar.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, -1, -1));
+
+        jLabel21.setText("Piso");
+        jpnAgregar.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, -1, -1));
+
+        jLabel22.setText("Torre o referencia");
+        jpnAgregar.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 230, -1, -1));
+
+        jLabel23.setText("Teléfono");
+        jpnAgregar.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, -1, -1));
+
+        jLabel24.setText("Nro.");
+        jpnAgregar.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 150, -1, -1));
+
+        jLabel25.setText("Oficina");
+        jpnAgregar.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 230, -1, -1));
+
+        jLabel26.setText("Sitio Web");
+        jpnAgregar.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
+
+        jLabel27.setText("Comuna");
+        jpnAgregar.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, -1, -1));
+
+        jLabel28.setText("Región");
+        jpnAgregar.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, -1, -1));
+
+        jLabel29.setText("Filial");
+        jpnAgregar.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 540, -1, -1));
+
+        cmbSis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnAgregar.add(cmbSis, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 210, -1));
+
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnAgregar.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 210, -1));
+
+        cmbFilial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnAgregar.add(cmbFilial, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 220, -1));
+
+        cmbComuna.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnAgregar.add(cmbComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 220, -1));
+
+        cmbRegion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jpnAgregar.add(cmbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 220, -1));
+
+        txtAppPat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAppPatActionPerformed(evt);
+            }
+        });
+        jpnAgregar.add(txtAppPat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 210, -1));
+        jpnAgregar.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 210, -1));
+        jpnAgregar.add(txtAppMat, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 210, -1));
+        jpnAgregar.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 150, -1));
+        jpnAgregar.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 210, -1));
+        jpnAgregar.add(txtCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 210, -1));
+        jpnAgregar.add(txtNombreUniversidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 540, 210, -1));
+        jpnAgregar.add(txtSede, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, 210, -1));
+
+        txtAnio.setForeground(new java.awt.Color(153, 153, 153));
+        txtAnio.setText("yyyy");
+        jpnAgregar.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 620, 50, -1));
+        jpnAgregar.add(txtNomClinica, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 220, -1));
+        jpnAgregar.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 120, -1));
+        jpnAgregar.add(txtNumero, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 150, 50, -1));
+        jpnAgregar.add(txtPiso, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 190, 220, -1));
+        jpnAgregar.add(txtOficina, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 230, 40, -1));
+
+        txtReferencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtReferenciaActionPerformed(evt);
+            }
+        });
+        jpnAgregar.add(txtReferencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 230, 110, -1));
+        jpnAgregar.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 270, 220, -1));
+        jpnAgregar.add(txtWeb, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 310, 220, -1));
+
+        jPanel3.setBackground(new java.awt.Color(3, 169, 244));
+
+        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel32.setText("Datos socio estudiantil");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel32)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(jLabel32)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jpnAgregar.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, 180, 40));
+
+        jPanel4.setBackground(new java.awt.Color(3, 169, 244));
+
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Datos Laborales");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel31)
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel31)
+                .addContainerGap())
+        );
+
+        jpnAgregar.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 50, -1, -1));
+
+        jPanel5.setBackground(new java.awt.Color(3, 169, 244));
+
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Datos Personales");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(25, Short.MAX_VALUE)
+                .addComponent(jLabel30)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel30)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jpnAgregar.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 50, -1, -1));
+
+        btnReestablecer.setBackground(new java.awt.Color(3, 169, 244));
+        btnReestablecer.setForeground(new java.awt.Color(255, 255, 255));
+        btnReestablecer.setText("Reestablecer");
+        jpnAgregar.add(btnReestablecer, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 620, 140, -1));
+
+        btnAgregar.setBackground(new java.awt.Color(3, 169, 244));
+        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        btnAgregar.setText("Agregar");
+        jpnAgregar.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(739, 620, 140, -1));
+        jpnAgregar.add(txtDigitoV, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 30, -1));
+
+        jLabel33.setText("-");
+        jpnAgregar.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 620, 30, -1));
+
+        txtDia.setForeground(new java.awt.Color(153, 153, 153));
+        txtDia.setText("dd");
+        jpnAgregar.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 620, 50, -1));
+
+        txtMes.setForeground(new java.awt.Color(153, 153, 153));
+        txtMes.setText("mm");
+        txtMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMesActionPerformed(evt);
+            }
+        });
+        jpnAgregar.add(txtMes, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 620, 50, -1));
+
+        jLabel34.setText("-");
+        jpnAgregar.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 230, 10, -1));
+
+        jLabel35.setText("-");
+        jpnAgregar.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 620, 30, -1));
+
+        getContentPane().add(jpnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 930, 680));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        // TODO add your handling code here:
+        Home home = new Home();
+        home.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+        x = evt.getX();
+        y = evt.getY();
+    }//GEN-LAST:event_jLabel7MousePressed
+
+    private void jLabel7MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseDragged
+        this.setLocation(this.getLocation().x + evt.getX() - x, this.getLocation().y + evt.getY() - y);
+    }//GEN-LAST:event_jLabel7MouseDragged
+
+    private void lbCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_lbCerrarMouseClicked
+
+    private void lbMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMinimizarMouseClicked
+        this.setState(Home.ICONIFIED);
+    }//GEN-LAST:event_lbMinimizarMouseClicked
+
+    private void txtAppPatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAppPatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAppPatActionPerformed
+
+    private void txtReferenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReferenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtReferenciaActionPerformed
+
+    private void txtMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMesActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        // TODO add your handling code here:
+        jpnAgregar.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -134,13 +499,74 @@ public class Crud extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnReestablecer;
+    private javax.swing.JComboBox cmbCategoria;
+    private javax.swing.JComboBox cmbComuna;
+    private javax.swing.JComboBox cmbFilial;
+    private javax.swing.JComboBox cmbRegion;
+    private javax.swing.JComboBox cmbSis;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    public javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    public javax.swing.JPanel jpnAgregar;
+    private javax.swing.JLabel lbCerrar;
+    private javax.swing.JLabel lbMinimizar;
+    private javax.swing.JTextField txtAnio;
+    private javax.swing.JTextField txtAppMat;
+    private javax.swing.JTextField txtAppPat;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDia;
+    private javax.swing.JTextField txtDigitoV;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtMes;
+    private javax.swing.JTextField txtNomClinica;
+    private javax.swing.JTextField txtNombreUniversidad;
+    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtOficina;
+    private javax.swing.JTextField txtPiso;
+    private javax.swing.JTextField txtReferencia;
+    private javax.swing.JTextField txtRut;
+    private javax.swing.JTextField txtSede;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtWeb;
     // End of variables declaration//GEN-END:variables
 }

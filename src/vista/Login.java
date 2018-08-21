@@ -5,6 +5,8 @@
  */
 package vista;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Ignacio
@@ -21,6 +23,9 @@ public class Login extends javax.swing.JFrame {
     private String usuarioSocio;
     private String contraseniaSocio;
     public Login() {
+        
+        
+        Home home;
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -37,7 +42,6 @@ public class Login extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtContraseniaUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtNombreUsuario = new javax.swing.JTextField();
         btnIngresar = new javax.swing.JButton();
@@ -45,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        txtContraseniaUsuario = new javax.swing.JPasswordField();
 
         jPanel2.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -69,17 +74,16 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/candado.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
-        jPanel1.add(txtContraseniaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 260, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/masculino (1).png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, -1, -1));
 
         txtNombreUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtNombreUsuario.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 txtNombreUsuarioCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jPanel1.add(txtNombreUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 260, 40));
@@ -128,6 +132,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, -1, -1));
+        jPanel1.add(txtContraseniaUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 260, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 750));
 
@@ -156,7 +161,13 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreUsuarioCaretPositionChanged
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        
+        if(txtNombreUsuario.getText().equals("administrador") && txtContraseniaUsuario.getText().equals("administrador")){
+           Home home = new Home();
+           home.setVisible(true);
+           this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "El nombre de usuario o contraseña son incorrectas");
+        }
     }//GEN-LAST:event_btnIngresarMouseClicked
 
     /**
@@ -204,7 +215,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtContraseniaUsuario;
+    private javax.swing.JPasswordField txtContraseniaUsuario;
     private javax.swing.JTextField txtNombreUsuario;
     // End of variables declaration//GEN-END:variables
 }
