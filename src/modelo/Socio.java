@@ -5,7 +5,12 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -209,4 +214,59 @@ public class Socio {
 	public void setCodigoSocioUniversidad(String codigoSocioUniversidad) {
 		this.codigoSocioUniversidad = codigoSocioUniversidad;
 	}
+        
+  //Consultas a la base de datos
+        
+      public boolean agregar(Socio nuevo){
+          String sentencia = "INSERT INTO socio (rut,  categoria,  dv,  nombres,  apellido_paterno," +
+			  "apellido_materno,  correo,  celular,  estado,  sis,  filial," +
+			  "fecha_ingreso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+          
+          try{
+              if(!buscarSocio(nuevo.getRut())){
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setInt(1, nuevo.getRut());
+              ps.setString(2, nuevo.getCategoria());
+              ps.setString(3, String.valueOf(nuevo.getDigitoVerificador()));
+              ps.setString(4, nuevo.getNombres());
+              ps.setString(5, nuevo.getApellidoPaterno());
+              ps.setString(6, nuevo.getApellidoMaterno());
+              ps.setString(7, nuevo.getCorreoElectronico());
+              ps.setString(8, nuevo.getCelular());
+              ps.setString(9, String.valueOf(nuevo.getEstado()));
+              ps.setString(10, nuevo.getSis());
+              ps.setString(11, nuevo.getFilial());
+              ps.setDate(12, nuevo.getAnioIngreso());
+              return true;
+              }else{
+                  System.out.println("El socio ya existe");
+              }
+          }catch (SQLException e){
+              System.out.println("No se pudo agregar");
+          }
+          
+          return false;
+      }  
+      
+      public boolean buscarSocio(int rut){
+         String sentencia = "SELECT * FROM socio WHERE rut = ?";
+         ResultSet rs;
+         try{
+             PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+             ps.setInt(1, rut);
+             rs = ps.executeQuery();
+             
+             if(rs.next()){
+                 System.out.println("Encontrado");
+                 return true;
+             }else{
+                 System.out.println("No se encontró");
+                 return false;
+             }
+         }catch(SQLException e){
+             System.out.println("No se pudo agregar");
+         }
+         
+         return false;
+      }
 }

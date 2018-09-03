@@ -499,13 +499,13 @@ public class Crud extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnReestablecer;
-    private javax.swing.JComboBox cmbCategoria;
-    private javax.swing.JComboBox cmbComuna;
-    private javax.swing.JComboBox cmbFilial;
-    private javax.swing.JComboBox cmbRegion;
-    private javax.swing.JComboBox cmbSis;
+    public javax.swing.JButton btnAgregar;
+    public javax.swing.JButton btnReestablecer;
+    public javax.swing.JComboBox cmbCategoria;
+    public javax.swing.JComboBox cmbComuna;
+    public javax.swing.JComboBox cmbFilial;
+    public javax.swing.JComboBox cmbRegion;
+    public javax.swing.JComboBox cmbSis;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -548,25 +548,25 @@ public class Crud extends javax.swing.JFrame {
     public javax.swing.JPanel jpnAgregar;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbMinimizar;
-    private javax.swing.JTextField txtAnio;
-    private javax.swing.JTextField txtAppMat;
-    private javax.swing.JTextField txtAppPat;
-    private javax.swing.JTextField txtCelular;
-    private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtDia;
-    private javax.swing.JTextField txtDigitoV;
-    private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtMes;
-    private javax.swing.JTextField txtNomClinica;
-    private javax.swing.JTextField txtNombreUniversidad;
-    private javax.swing.JTextField txtNombres;
-    private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtOficina;
-    private javax.swing.JTextField txtPiso;
-    private javax.swing.JTextField txtReferencia;
-    private javax.swing.JTextField txtRut;
-    private javax.swing.JTextField txtSede;
-    private javax.swing.JTextField txtTelefono;
-    private javax.swing.JTextField txtWeb;
+    public javax.swing.JTextField txtAnio;
+    public javax.swing.JTextField txtAppMat;
+    public javax.swing.JTextField txtAppPat;
+    public javax.swing.JTextField txtCelular;
+    public javax.swing.JTextField txtCorreo;
+    public javax.swing.JTextField txtDia;
+    public javax.swing.JTextField txtDigitoV;
+    public javax.swing.JTextField txtDireccion;
+    public javax.swing.JTextField txtMes;
+    public javax.swing.JTextField txtNomClinica;
+    public javax.swing.JTextField txtNombreUniversidad;
+    public javax.swing.JTextField txtNombres;
+    public javax.swing.JTextField txtNumero;
+    public javax.swing.JTextField txtOficina;
+    public javax.swing.JTextField txtPiso;
+    public javax.swing.JTextField txtReferencia;
+    public javax.swing.JTextField txtRut;
+    public javax.swing.JTextField txtSede;
+    public javax.swing.JTextField txtTelefono;
+    public javax.swing.JTextField txtWeb;
     // End of variables declaration//GEN-END:variables
 }
