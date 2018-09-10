@@ -5,6 +5,13 @@
  */
 package vista;
 
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import modelo.Conexion;
+
+
 /**
  *
  * @author Ignacio
@@ -14,12 +21,48 @@ public class Crud extends javax.swing.JFrame {
     /**
      * Creates new form Crud
      */
+    
     int x, y;
     public Crud() {
         
         initComponents();
         this.setLocationRelativeTo(null);
         jpnAgregar.setVisible(false);
+
+        ResultSet rs;
+        try{
+            String sentencia = "SELECT nombre_region FROM tbl_region";
+            PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+            rs = ps.executeQuery();
+            
+            cmbRegion.addItem("Seleccione región");
+            
+            while(rs.next()){
+                cmbRegion.addItem(rs.getString("nombre_region"));
+            }
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            System.out.println("No se puedo conectar a la base de datos");
+        }
+        
+        try{
+            String sentencia = "SELECT nombre_comuna FROM tbl_comuna";
+            PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+            rs = ps.executeQuery();
+            
+            cmbComuna.addItem("Seleccione comuna");
+            
+            while(rs.next()){
+                cmbComuna.addItem(rs.getString("nombre_comuna"));
+            }
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            System.out.println("No se pudo conectar a la base de datos");
+        }
     }
 
     /**
@@ -32,12 +75,12 @@ public class Crud extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        btnNuevoSocio = new javax.swing.JButton();
+        btnModificarSocio = new javax.swing.JButton();
+        btnNuevoPago = new javax.swing.JButton();
+        btnNuevoTiempo = new javax.swing.JButton();
         jpnAgregar = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         lbMinimizar = new javax.swing.JLabel();
@@ -109,19 +152,6 @@ public class Crud extends javax.swing.JFrame {
         jPanel1.setForeground(new java.awt.Color(3, 169, 244));
         jPanel1.setPreferredSize(new java.awt.Dimension(120, 680));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (2).png"))); // NOI18N
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
-            }
-        });
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (1).png"))); // NOI18N
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cartera.png"))); // NOI18N
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/calendario.png"))); // NOI18N
-
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/flecha-izquierda-boton-de-teclado.png"))); // NOI18N
         jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -132,37 +162,86 @@ public class Crud extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
 
+        btnNuevoSocio.setBackground(new java.awt.Color(3, 169, 244));
+        btnNuevoSocio.setForeground(new java.awt.Color(3, 169, 244));
+        btnNuevoSocio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (2).png"))); // NOI18N
+        btnNuevoSocio.setBorder(null);
+        btnNuevoSocio.setBorderPainted(false);
+        btnNuevoSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoSocio.setFocusPainted(false);
+        btnNuevoSocio.setFocusable(false);
+        btnNuevoSocio.setOpaque(false);
+        btnNuevoSocio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNuevoSocioMouseClicked(evt);
+            }
+        });
+
+        btnModificarSocio.setBackground(new java.awt.Color(3, 169, 244));
+        btnModificarSocio.setForeground(new java.awt.Color(3, 169, 244));
+        btnModificarSocio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/usuario (1).png"))); // NOI18N
+        btnModificarSocio.setBorder(null);
+        btnModificarSocio.setBorderPainted(false);
+        btnModificarSocio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnModificarSocio.setFocusPainted(false);
+        btnModificarSocio.setFocusable(false);
+        btnModificarSocio.setOpaque(false);
+
+        btnNuevoPago.setBackground(new java.awt.Color(3, 169, 244));
+        btnNuevoPago.setForeground(new java.awt.Color(3, 169, 244));
+        btnNuevoPago.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cartera.png"))); // NOI18N
+        btnNuevoPago.setBorder(null);
+        btnNuevoPago.setBorderPainted(false);
+        btnNuevoPago.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoPago.setFocusPainted(false);
+        btnNuevoPago.setFocusable(false);
+        btnNuevoPago.setOpaque(false);
+
+        btnNuevoTiempo.setBackground(new java.awt.Color(3, 169, 244));
+        btnNuevoTiempo.setForeground(new java.awt.Color(3, 169, 244));
+        btnNuevoTiempo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/calendario.png"))); // NOI18N
+        btnNuevoTiempo.setBorder(null);
+        btnNuevoTiempo.setBorderPainted(false);
+        btnNuevoTiempo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoTiempo.setFocusPainted(false);
+        btnNuevoTiempo.setFocusable(false);
+        btnNuevoTiempo.setOpaque(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnNuevoSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnNuevoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addContainerGap(29, Short.MAX_VALUE))
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnModificarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jLabel1)
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addGap(43, 43, 43)
-                .addComponent(jLabel4)
-                .addGap(48, 48, 48)
-                .addComponent(jLabel3)
+                .addComponent(btnNuevoSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(btnModificarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(btnNuevoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(btnNuevoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(81, 81, 81)
                 .addComponent(jLabel5)
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel6)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 120, 680));
@@ -265,19 +344,17 @@ public class Crud extends javax.swing.JFrame {
         jLabel29.setText("Filial");
         jpnAgregar.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 540, -1, -1));
 
-        cmbSis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione SIS", "Especialista", "Cirujano Dentista", "Sin registro" }));
         jpnAgregar.add(cmbSis, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 210, -1));
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione categoría", "Estudiantil", "De número", "Activo", "Honorario", "Colaborador", "Activo/Director", "Honorario/Director" }));
         jpnAgregar.add(cmbCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 210, -1));
 
-        cmbFilial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFilial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione filial", "Punta Arenas", "Puerto Montt", "Santiago", "Temuco", "La Serena", "Ñuble", "Rancagua", "Talca", "Antofagasta", "Iquique" }));
         jpnAgregar.add(cmbFilial, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 220, -1));
 
-        cmbComuna.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jpnAgregar.add(cmbComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 220, -1));
 
-        cmbRegion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jpnAgregar.add(cmbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 220, -1));
 
         txtAppPat.addActionListener(new java.awt.event.ActionListener() {
@@ -458,10 +535,10 @@ public class Crud extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMesActionPerformed
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void btnNuevoSocioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoSocioMouseClicked
         // TODO add your handling code here:
         jpnAgregar.setVisible(true);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_btnNuevoSocioMouseClicked
 
     /**
      * @param args the command line arguments
@@ -500,13 +577,16 @@ public class Crud extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnAgregar;
+    public javax.swing.JButton btnModificarSocio;
+    public javax.swing.JButton btnNuevoPago;
+    public javax.swing.JButton btnNuevoSocio;
+    public javax.swing.JButton btnNuevoTiempo;
     public javax.swing.JButton btnReestablecer;
     public javax.swing.JComboBox cmbCategoria;
     public javax.swing.JComboBox cmbComuna;
     public javax.swing.JComboBox cmbFilial;
     public javax.swing.JComboBox cmbRegion;
     public javax.swing.JComboBox cmbSis;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -517,7 +597,6 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -528,14 +607,12 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;

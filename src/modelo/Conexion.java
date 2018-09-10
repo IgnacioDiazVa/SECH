@@ -16,23 +16,36 @@ import java.sql.SQLException;
 public class Conexion {
 
     private static Connection conexion;
-
-    private Conexion() {
+    
+    private Conexion(){
+        
     }
 
+
     public static Connection obtenerInstancia() {
-        if (conexion == null) {
-            String url = "jdbc:mysql:thin:@localhost:1521:xe";
-            String user = "root";
-            String pass = "root";
-            System.out.println("Proceso de Coneccion...");
-            try {
-                conexion = DriverManager.getConnection(url, user, pass);
-                System.out.println("Conexión realizada a la base de datos con éxito.");
-            } catch (SQLException e) {
-                System.out.println("Error!, conexión fallida a la base de datos.");
+        try {
+            if (conexion == null) {
+                Runtime.getRuntime().addShutdownHook(new getClose());
+                Class.forName("com.mysql.jdbc.Driver");
+                conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/database2018?autoReconnect=true&useSSL=false", "root", "root");
+            }
+            return conexion;
+        } catch (ClassNotFoundException | SQLException e){
+            throw new RuntimeException("Conexión fallida", e);
+        }
+    }
+    
+    static class getClose extends Thread{
+        @Override
+        public void run() {
+            try{
+                Connection conn = Conexion.obtenerInstancia();
+                conn.close();
+            }catch (SQLException ex){
+                throw new RuntimeException(ex);
             }
         }
-        return conexion;
+        
+        
     }
 }

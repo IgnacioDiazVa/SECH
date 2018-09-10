@@ -218,7 +218,7 @@ public class Socio {
   //Consultas a la base de datos
         
       public boolean agregar(Socio nuevo){
-          String sentencia = "INSERT INTO socio (rut,  categoria,  dv,  nombres,  apellido_paterno," +
+          String sentencia = "INSERT INTO tbl_socio (rut,  categoria,  dv,  nombres,  apellido_paterno," +
 			  "apellido_materno,  correo,  celular,  estado,  sis,  filial," +
 			  "fecha_ingreso) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
           
@@ -249,7 +249,7 @@ public class Socio {
       }  
       
       public boolean buscarSocio(int rut){
-         String sentencia = "SELECT * FROM socio WHERE rut = ?";
+         String sentencia = "SELECT * FROM tbl_socio WHERE rut = ?";
          ResultSet rs;
          try{
              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
