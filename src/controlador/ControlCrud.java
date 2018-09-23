@@ -7,7 +7,6 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Date;
 import javax.swing.JOptionPane;
 import modelo.Socio;
 import modelo.Universidad;
@@ -25,10 +24,11 @@ public class ControlCrud implements ActionListener{
     private Crud crud;
     private Universidad universidad;
     
+        
     
-    
-    public ControlCrud (Socio socios, Crud crud){
+    public ControlCrud (Socio socios, Crud crud, Socio nuevo){
         this.socios = socios;
+        this.nuevo = nuevo;
         this.crud = crud;
         this.crud.btnAgregar.addActionListener(this);
         this.crud.btnReestablecer.addActionListener(this);
@@ -41,8 +41,14 @@ public class ControlCrud implements ActionListener{
 //        this.crud.btnNuevoTiempo.addActionListener(this);
     }
      
+    public void iniciar(){
+        crud.setLocationRelativeTo(null);
+    }
     
     
+    
+    
+
     @Override
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == crud.btnAgregar){
@@ -58,7 +64,10 @@ public class ControlCrud implements ActionListener{
             socios.setFilial(crud.cmbFilial.getSelectedItem().toString());
             
             socios.setEstado('a');
-            socios.setAnioIngreso((Date) new java.util.Date());
+            
+            java.util.Date date = new java.util.Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime()); 
+            socios.setAnioIngreso(sqlDate);
             
             if(nuevo.agregar(socios)){
                 JOptionPane.showMessageDialog(null, "Ingresado con éxito");
@@ -78,6 +87,14 @@ public class ControlCrud implements ActionListener{
     
     public void limpiar(){
         crud.txtNombres.setText(null);
+        crud.txtAppPat.setText(null);
+        crud.txtAppMat.setText(null);
+        crud.txtCelular.setText(null);
+        crud.txtCorreo.setText(null);
+        crud.txtRut.setText(null);
+        crud.txtDigitoV.setText(null);
+        crud.txtReferencia.setText(null);
+        
         
     }
     

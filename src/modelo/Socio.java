@@ -215,7 +215,12 @@ public class Socio {
 		this.codigoSocioUniversidad = codigoSocioUniversidad;
 	}
         
-  //Consultas a la base de datos
+  /*Consultas a la base de datos
+   *
+   *Métodos para las diferentes inserciones de los socios:
+   * 
+  */
+        
         
       public boolean agregar(Socio nuevo){
           String sentencia = "INSERT INTO tbl_socio (rut,  categoria,  dv,  nombres,  apellido_paterno," +
