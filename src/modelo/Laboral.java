@@ -5,6 +5,10 @@
  */
 package modelo;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Ignacio
@@ -171,4 +175,109 @@ public class Laboral {
 	public void setCodigoComunaLaboral(Integer codigoComunaLaboral) {
 		this.codigoComunaLaboral = codigoComunaLaboral;
 	}
+        
+        public boolean agregar(Laboral nuevo){
+          String sentencia = "INSERT INTO tbl_laboral (direccion,  piso,  oficina,  telefono,  referencia," +
+			  "sitio_web,  tbl_socio_rut,  tbl_socio_categoria,  tbl_comuna_codigo_comuna,  nombre_laboral)" +
+			  "VALUES(?,?,?,?,?,?,?,?,?,?)";
+          
+          try{
+              if(!buscarSocioLaboral(nuevo.getDireccion(), nuevo.getLaboralRut())){
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setString(1, nuevo.getDireccion());
+              ps.setInt(2, nuevo.getPiso());
+              ps.setString(3, nuevo.getOficina());
+              ps.setInt(4, nuevo.getNumeroTelefono());
+              ps.setString(5, nuevo.getReferencia());
+              ps.setString(6, nuevo.getSitioWeb());
+              ps.setInt(7, nuevo.getLaboralRut());
+              ps.setString(8, nuevo.getLaboralCategoria());
+              ps.setInt(9, nuevo.getCodigoComunaLaboral());
+              ps.setString(10, nuevo.getNombreLaboral());
+              ps.execute();
+              return true;
+              }else{
+                  System.out.println("Este registro de trabajo ya existe");
+              }
+          }catch (SQLException e){
+              System.out.println("No se pudo agregar");
+          }
+          
+          return false;
+      }  
+        
+        public boolean agregarSinPiso(Laboral nuevo){
+          String sentencia = "INSERT INTO tbl_laboral (direccion, oficina,  telefono,  referencia," +
+			  "sitio_web,  tbl_socio_rut,  tbl_socio_categoria,  tbl_comuna_codigo_comuna,  nombre_laboral)" +
+			  "VALUES(?,?,?,?,?,?,?,?,?)";
+          
+          try{
+              if(!buscarSocioLaboral(nuevo.getDireccion(), nuevo.getLaboralRut())){
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setString(1, nuevo.getDireccion());
+              ps.setString(2, nuevo.getOficina());
+              ps.setInt(3, nuevo.getNumeroTelefono());
+              ps.setString(4, nuevo.getReferencia());
+              ps.setString(5, nuevo.getSitioWeb());
+              ps.setInt(6, nuevo.getLaboralRut());
+              ps.setString(7, nuevo.getLaboralCategoria());
+              ps.setInt(8, nuevo.getCodigoComunaLaboral());
+              ps.setString(9, nuevo.getNombreLaboral());
+              ps.execute();
+              return true;
+              }else{
+                  System.out.println("Este registro de trabajo ya existe");
+              }
+          }catch (SQLException e){
+              System.out.println("No se pudo agregar");
+          }
+          
+          return false;
+      }  
+      
+      public boolean buscarSocioLaboral(String direccion, int laboralRut){
+         String sentencia = "SELECT * FROM tbl_laboral WHERE tbl_socio_rut = ? AND direccion = ?";
+         ResultSet rs;
+         try{
+             PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+             ps.setInt(1, laboralRut);
+             ps.setString(2, direccion);
+             rs = ps.executeQuery();
+             
+             if(rs.next()){
+                 System.out.println("Encontrado");
+                 return true;
+             }else{
+                 System.out.println("No se encontró");
+                 return false;
+             }
+         }catch(SQLException e){
+             System.out.println("No se pudo verificar");
+         }
+         
+         return false;
+      }
+      
+      public int codigoComuna(String comuna){
+          String sentencia = "SELECT codigo_comuna FROM tbl_comuna WHERE nombre_comuna = ?";
+          ResultSet rs;
+          int numero;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setString(1, comuna);
+              rs = ps.executeQuery();
+              
+              if(rs.next()){
+                  System.out.println("Se ha encontrado la comuna");
+                  numero = rs.getInt(1);
+                  return numero;
+              }else{
+                  System.out.println("No coincide con ningún regitro");
+                  return 0;
+              }
+          }catch(SQLException e){
+              System.out.println("No se pudo verificar");
+          }
+          return 0;
+      }
 }

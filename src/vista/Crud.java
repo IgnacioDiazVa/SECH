@@ -28,24 +28,16 @@ public class Crud extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jpnAgregar.setVisible(false);
+        txtNombreUniversidad.setEditable(false);
+        txtSede.setEditable(false);
+        txtAnio.setEditable(false);
+        txtMes.setEditable(false);
+        txtDia.setEditable(false);
+        
+        
 
         ResultSet rs;
-        try{
-            String sentencia = "SELECT nombre_region FROM tbl_region";
-            PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
-            rs = ps.executeQuery();
-            
-            cmbRegion.addItem("Seleccione región");
-            
-            while(rs.next()){
-                cmbRegion.addItem(rs.getString("nombre_region"));
-            }
-            
-            rs.close();
-            
-        }catch(SQLException ex){
-            System.out.println("No se puedo conectar a la base de datos");
-        }
+        
         
         try{
             String sentencia = "SELECT nombre_comuna FROM tbl_comuna";
@@ -64,6 +56,8 @@ public class Crud extends javax.swing.JFrame {
             System.out.println("No se pudo conectar a la base de datos");
         }
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,13 +99,11 @@ public class Crud extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         cmbSis = new javax.swing.JComboBox();
         cmbCategoria = new javax.swing.JComboBox();
         cmbFilial = new javax.swing.JComboBox();
         cmbComuna = new javax.swing.JComboBox();
-        cmbRegion = new javax.swing.JComboBox();
         txtAppPat = new javax.swing.JTextField();
         txtNombres = new javax.swing.JTextField();
         txtAppMat = new javax.swing.JTextField();
@@ -143,6 +135,7 @@ public class Crud extends javax.swing.JFrame {
         txtMes = new javax.swing.JTextField();
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -338,13 +331,10 @@ public class Crud extends javax.swing.JFrame {
         jLabel27.setText("Comuna");
         jpnAgregar.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 350, -1, -1));
 
-        jLabel28.setText("Región");
-        jpnAgregar.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 390, -1, -1));
-
         jLabel29.setText("Filial");
         jpnAgregar.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 540, -1, -1));
 
-        cmbSis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione SIS", "Especialista", "Cirujano Dentista", "Sin registro" }));
+        cmbSis.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione SIS", "Endodoncista", "Cirujano Dentista", "Sin registro" }));
         jpnAgregar.add(cmbSis, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, 210, -1));
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione categoría", "Estudiantil", "De número", "Activo", "Honorario", "Colaborador", "Activo/Director", "Honorario/Director" }));
@@ -354,8 +344,6 @@ public class Crud extends javax.swing.JFrame {
         jpnAgregar.add(cmbFilial, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 540, 220, -1));
 
         jpnAgregar.add(cmbComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 350, 220, -1));
-
-        jpnAgregar.add(cmbRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 390, 220, -1));
 
         txtAppPat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -372,7 +360,6 @@ public class Crud extends javax.swing.JFrame {
         jpnAgregar.add(txtSede, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 580, 210, -1));
 
         txtAnio.setForeground(new java.awt.Color(153, 153, 153));
-        txtAnio.setText("yyyy");
         jpnAgregar.add(txtAnio, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 620, 50, -1));
         jpnAgregar.add(txtNomClinica, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 110, 220, -1));
         jpnAgregar.add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 150, 120, -1));
@@ -476,11 +463,14 @@ public class Crud extends javax.swing.JFrame {
         jpnAgregar.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 620, 30, -1));
 
         txtDia.setForeground(new java.awt.Color(153, 153, 153));
-        txtDia.setText("dd");
+        txtDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDiaActionPerformed(evt);
+            }
+        });
         jpnAgregar.add(txtDia, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 620, 50, -1));
 
         txtMes.setForeground(new java.awt.Color(153, 153, 153));
-        txtMes.setText("mm");
         txtMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMesActionPerformed(evt);
@@ -493,6 +483,10 @@ public class Crud extends javax.swing.JFrame {
 
         jLabel35.setText("-");
         jpnAgregar.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 620, 30, -1));
+
+        jLabel1.setForeground(new java.awt.Color(153, 153, 153));
+        jLabel1.setText("(dd - mm - yyyy)");
+        jpnAgregar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, -1, -1));
 
         getContentPane().add(jpnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 930, 680));
 
@@ -540,6 +534,10 @@ public class Crud extends javax.swing.JFrame {
         jpnAgregar.setVisible(true);
     }//GEN-LAST:event_btnNuevoSocioMouseClicked
 
+    private void txtDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDiaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -585,8 +583,8 @@ public class Crud extends javax.swing.JFrame {
     public javax.swing.JComboBox cmbCategoria;
     public javax.swing.JComboBox cmbComuna;
     public javax.swing.JComboBox cmbFilial;
-    public javax.swing.JComboBox cmbRegion;
     public javax.swing.JComboBox cmbSis;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -605,7 +603,6 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;

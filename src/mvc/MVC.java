@@ -6,7 +6,12 @@
 package mvc;
 
 import controlador.ControlCrud;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import modelo.Laboral;
 import modelo.Socio;
+import modelo.Universidad;
 import vista.Crud;
 
 /**
@@ -15,18 +20,20 @@ import vista.Crud;
  */
 public class MVC {
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws ParseException{
         
         Socio socios = new Socio();
         Socio nuevo = new Socio();
         Crud crud = new Crud();
+        Universidad uni = new Universidad();
+        Laboral lab = new Laboral();
         
-        ControlCrud ctrl = new ControlCrud(socios, crud, nuevo);
+        ControlCrud ctrl = new ControlCrud(socios, crud, nuevo, uni, lab);
         ctrl.iniciar();
         crud.setVisible(true);
 
-//        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//        System.out.println("Fecha: "+dateFormat.format(date));
+        
+       
         
     }
     
