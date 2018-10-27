@@ -308,4 +308,66 @@ public class Socio {
          
          return false;
       }
+      
+      public boolean buscar(Socio nuevo){
+         String sentencia = "SELECT * FROM tbl_socio WHERE rut = ?";
+         ResultSet rs;
+         try{
+             PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+             ps.setInt(1, nuevo.getRut());
+             rs = ps.executeQuery();
+             
+             if(rs.next()){
+                 nuevo.setNombres(rs.getString("nombres"));
+                 nuevo.setApellidoPaterno(rs.getString("apellido_paterno"));
+                 nuevo.setApellidoMaterno(rs.getString("apellido_materno"));
+                 nuevo.setCorreoElectronico(rs.getString("correo"));
+                 nuevo.setCelular(rs.getString("celular"));
+                 nuevo.setFilial(rs.getString("filial"));
+                 nuevo.setSis(rs.getString("sis"));
+                 nuevo.setRut(Integer.parseInt(rs.getString("rut")));
+                 nuevo.setDigitoVerificador(rs.getString("dv").charAt(0));
+                 nuevo.setCategoria(rs.getString("categoria"));
+                 //no se guardara la fecha de ingreso del socio ni el estado
+                 
+                 return true;
+             }else{
+                 System.out.println("No se encontró");
+                 return false;
+             }
+         }catch(SQLException e){
+             System.out.println("No se pudo verificar");
+         }
+         
+         return false;
+      }
+      
+      public boolean modificar(Socio nuevo){
+          String sentencia = "UPDATE tbl_socio SET rut=?,  categoria=?,  dv=?,  nombres=?,  apellido_paterno=?," +
+			  "apellido_materno=?,  correo=?,  celular=?, sis=?,  filial=? where rut=?";
+			  
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setInt(1, nuevo.getRut());
+              ps.setString(2, nuevo.getCategoria());
+              ps.setString(3, String.valueOf(nuevo.getDigitoVerificador()));
+              ps.setString(4, nuevo.getNombres());
+              ps.setString(5, nuevo.getApellidoPaterno());
+              ps.setString(6, nuevo.getApellidoMaterno());
+              ps.setString(7, nuevo.getCorreoElectronico());
+              ps.setString(8, nuevo.getCelular());
+              ps.setString(9, nuevo.getSis());
+              ps.setString(10, nuevo.getFilial());
+              ps.setInt(11, nuevo.getRut());
+              ps.execute();
+              return true;
+          }catch (SQLException e){
+              System.out.println("No se pudo modificar");
+          }
+          
+          return false;
+      }
+      
+      
 }

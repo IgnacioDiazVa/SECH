@@ -8,6 +8,8 @@ package modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -21,6 +23,7 @@ public class Laboral {
 	private String referencia;
 	private String sitioWeb;
 	private String nombreLaboral;
+        
 	
 	//Atributos con claves foráneas en la base de datos
 	private Integer laboralRut;
@@ -201,6 +204,8 @@ public class Laboral {
               }
           }catch (SQLException e){
               System.out.println("No se pudo agregar");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
           }
           
           return false;
@@ -279,5 +284,35 @@ public class Laboral {
               System.out.println("No se pudo verificar");
           }
           return 0;
+      }
+      
+      public ArrayList<Laboral> listLaboral(int rut){
+          String sentencia = "SELECT * FROM tbl_laboral where tbl_socio_rut=?"; 
+          ArrayList listaLaboral = new ArrayList();
+          Laboral laboral;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, rut);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  laboral = new Laboral();
+                  laboral.setDireccion(rs.getString(1));
+                  laboral.setPiso(rs.getInt(2));
+                  laboral.setOficina(rs.getString(3));
+                  laboral.setNumeroTelefono(rs.getInt(4));
+                  laboral.setReferencia(rs.getString(5));
+                  laboral.setSitioWeb(rs.getString(6));
+                  laboral.setLaboralRut(rs.getInt(7));
+                  laboral.setLaboralCategoria(rs.getString(8));
+                  laboral.setCodigoComunaLaboral(rs.getInt(9));
+                  laboral.setNombreLaboral(rs.getString(10));
+                  listaLaboral.add(laboral);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaLaboral;
       }
 }

@@ -6,9 +6,8 @@
 package mvc;
 
 import controlador.ControlCrud;
+import controlador.ControlCrudModi;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import modelo.Laboral;
 import modelo.Socio;
 import modelo.Universidad;
@@ -29,11 +28,11 @@ public class MVC {
         Laboral lab = new Laboral();
         
         ControlCrud ctrl = new ControlCrud(socios, crud, nuevo, uni, lab);
+        ControlCrudModi ctrlMod = new ControlCrudModi(socios, crud, lab, nuevo);
         ctrl.iniciar();
         crud.setVisible(true);
 
         
-       
         
     }
     

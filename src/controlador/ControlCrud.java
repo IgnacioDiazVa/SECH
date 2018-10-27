@@ -18,10 +18,6 @@ import modelo.Socio;
 import modelo.Universidad;
 import vista.Crud;
 
-
-
-
-
 /**
  *
  * @author Ignacio
@@ -59,10 +55,12 @@ public class ControlCrud implements ActionListener{
     /*
     *Falta agregar un método en donde revise los campos que se han rellenado y evalué si son socio, universidad o laboral antes de ingresarlos a la
     *base de datos, y que haga visible los campos en la vista en donde hay que rellenar
+    *  Se puede evaluar tener restricciones en los jtextfield para reducir la posibilidad de errores
     */
 
     @Override
     public void actionPerformed(ActionEvent e){
+        
         if(e.getSource() == crud.cmbCategoria){
            if(crud.cmbCategoria.getSelectedIndex()== 1){
             crud.txtNombreUniversidad.setEditable(true);
