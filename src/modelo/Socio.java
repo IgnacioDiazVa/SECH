@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import jdk.nashorn.internal.objects.NativeError;
 
 
 /**
@@ -342,6 +344,30 @@ public class Socio {
          return false;
       }
       
+      public String buscarCategoria(int rut){
+          String sentencia = "SELECT categoria FROM tbl_socio WHERE rut = ?";
+          ResultSet rs;
+          String categoria;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setInt(1, rut);
+              rs = ps.executeQuery();
+              
+              if(rs.next()){
+                  System.out.println("Se ha encontrado la categoria");
+                  categoria = rs.getString(1);
+                  System.out.println(categoria);
+                  return categoria;
+              }else{
+                  System.out.println("No coincide con ningún regitro");
+                  return "";
+              }
+          }catch(SQLException e){
+              System.out.println("No se pudo verificar");
+          }
+          return "";
+      }
+      
       public boolean modificar(Socio nuevo){
           String sentencia = "UPDATE tbl_socio SET rut=?,  categoria=?,  dv=?,  nombres=?,  apellido_paterno=?," +
 			  "apellido_materno=?,  correo=?,  celular=?, sis=?,  filial=? where rut=?";
@@ -360,7 +386,7 @@ public class Socio {
               ps.setString(9, nuevo.getSis());
               ps.setString(10, nuevo.getFilial());
               ps.setInt(11, nuevo.getRut());
-              ps.execute();
+              ps.execute(); //Revisar si no es mejor un executeUpdate
               return true;
           }catch (SQLException e){
               System.out.println("No se pudo modificar");
@@ -369,5 +395,401 @@ public class Socio {
           return false;
       }
       
+      public ArrayList<Socio> listSocio(int rut){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial FROM tbl_socio where rut=?"; 
+          ArrayList listaSocioP = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, rut);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaSocioP.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaSocioP;
+      }
       
+      public ArrayList<Socio> listSis(String sis){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where sis=?"; 
+          ArrayList listaSisP = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, sis);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaSisP.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaSisP;
+      }
+      
+      public ArrayList<Socio> listFilial(String filial){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where filial=?"; 
+          ArrayList listaFilialP = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaFilialP.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaFilialP;
+      }
+      
+      public ArrayList<Socio> listCategoria(String categoria){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where categoria=?"; 
+          ArrayList listaCategoriaP = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, categoria);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaCategoriaP.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaCategoriaP;
+      }
+      
+      public ArrayList<Socio> listSiFi(String sis, String filial){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where sis=? AND filial=?"; 
+          ArrayList listaSiFi = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, sis);
+              ps.setString(2, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaSiFi.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaSiFi;
+      }
+      
+      public ArrayList<Socio> listCaFi(String categoria, String filial){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where categoria=? AND filial=?"; 
+          ArrayList listaCaFi = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, categoria);
+              ps.setString(2, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaCaFi.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaCaFi;
+      }
+      
+      public ArrayList<Socio> listCaSis(String categoria, String sis){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where categoria=? AND sis=?"; 
+          ArrayList listaCaSis = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, categoria);
+              ps.setString(2, sis);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaCaSis.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaCaSis;
+      }
+      
+      public ArrayList<Socio> listTodo(String categoria, String sis, String filial){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial, sis FROM tbl_socio where categoria=? AND sis=? AND filial=?"; 
+          ArrayList listaTodo = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, categoria);
+              ps.setString(2, sis);
+              ps.setString(3, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  socio.setSis(rs.getString(8));
+                  listaTodo.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaTodo;
+      }
+      
+      public ArrayList<Socio> listUniversidad(String universidad){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial\n" +
+                             "FROM tbl_socio\n" +
+                             "JOIN tbl_universidad\n" +
+                             "ON tbl_socio.rut=tbl_universidad.codigo_ingreso\n" +
+                             "where nombre_universidad =?";
+          
+          ArrayList listaUni = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, universidad);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaUni.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          return listaUni;
+      }
+      
+      public ArrayList<Socio> listAlDia(int numeroMes, int anio){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial\n" +
+                             "FROM tbl_socio\n" +
+                             "JOIN tbl_cuota_social\n" +
+                             "on tbl_socio.rut=tbl_cuota_social.tbl_socio_rut\n" +
+                             "where YEAR(fecha_pago)=?\n" +
+                             "group by tbl_socio_rut\n" +
+                             "Having count(tbl_socio_rut)>=?;";
+          
+          ArrayList listaAlDia = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anio);
+              ps.setInt(2, numeroMes);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaAlDia.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          
+          String sentenciaDos ="SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial\n"+
+                               "FROM tbl_socio Where categoria = \"Activo/Director\" OR categoria =\"Honorario/Director\" OR categoria =\"Honorario\"";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaDos);
+              rs= ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaAlDia.add(socio);
+              }
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          
+          return listaAlDia;
+      }
+      
+      
+     public ArrayList<Socio> listCuotasTres(String categoria, String filial, int anio,  int condicion){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio\n" +
+                                "WHERE categoria=? AND filial=? AND rut NOT IN (SELECT tbl_socio_rut\n" +
+                                "FROM tbl_cuota_social\n" +
+                                "where YEAR(fecha_pago)=?\n" +
+                                "group by tbl_socio_rut\n" +
+                                "Having count(tbl_socio_rut)>=?)";
+          
+          ArrayList listaCuotaTres = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setString(1, categoria);
+              ps.setString(2, filial);
+              ps.setInt(3, anio);
+              ps.setInt(4, condicion);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaCuotaTres.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          return listaCuotaTres;
+      } 
+     
+     public ArrayList<Socio> listCuotasTresDos(String categoria, String filial, int anio,  int condicion){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio socio\n" +
+                                "JOIN (SELECT tbl_socio_rut\n" +
+                                "FROM tbl_cuota_social\n" +
+                                "where YEAR(fecha_pago)=? \n" +
+                                "group by tbl_socio_rut\n" +
+                                "Having count(tbl_socio_rut)=?) AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "WHERE categoria=? AND filial=?";
+          
+          ArrayList listaCuotaTresDos = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anio);
+              ps.setInt(2, condicion);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaCuotaTresDos.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          return listaCuotaTresDos;
+      } 
 }

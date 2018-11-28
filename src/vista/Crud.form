@@ -49,15 +49,8 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="btnNuevoSocio" alignment="0" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="btnNuevoTiempo" min="-2" pref="120" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
@@ -66,6 +59,13 @@
                       <Component id="btnNuevoPago" alignment="0" min="-2" pref="120" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnNuevoTiempo" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                      <Component id="btnRegresar" alignment="1" min="-2" pref="120" max="-2" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -79,9 +79,9 @@
                   <Component id="btnNuevoPago" min="-2" pref="106" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                   <Component id="btnNuevoTiempo" min="-2" pref="106" max="-2" attributes="0"/>
-                  <EmptySpace pref="154" max="32767" attributes="0"/>
-                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace pref="135" max="32767" attributes="0"/>
+                  <Component id="btnRegresar" min="-2" pref="106" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               </Group>
@@ -89,19 +89,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel5">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/flecha-izquierda-boton-de-teclado.png"/>
-            </Property>
-            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-              <Color id="Cursor de Mano"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -220,6 +207,35 @@
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnNuevoTiempoMouseClicked"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnRegresar">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f4" green="a9" red="3" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f4" green="a9" red="3" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/flecha-izquierda-boton-de-teclado.png"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="null"/>
+            </Property>
+            <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+              <Color id="Cursor de Mano"/>
+            </Property>
+            <Property name="focusPainted" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="opaque" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegresarMouseClicked"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -1495,7 +1511,19 @@
         <Component class="javax.swing.JComboBox" name="cmbFilialPersonal">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="0"/>
+              <StringArray count="11">
+                <StringItem index="0" value="Seleccione filial"/>
+                <StringItem index="1" value="Punta Arenas"/>
+                <StringItem index="2" value="Puerto Montt"/>
+                <StringItem index="3" value="Santiago"/>
+                <StringItem index="4" value="Temuco"/>
+                <StringItem index="5" value="La Serena"/>
+                <StringItem index="6" value="&#xd1;uble"/>
+                <StringItem index="7" value="Rancagua"/>
+                <StringItem index="8" value="Talca"/>
+                <StringItem index="9" value="Antofagasta"/>
+                <StringItem index="10" value="Iquique"/>
+              </StringArray>
             </Property>
           </Properties>
           <AuxValues>
@@ -2089,9 +2117,15 @@
                                       </Group>
                                       <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="txtMontoN" pref="170" max="32767" attributes="0"/>
-                                          <Component id="txtFechaPagoN" max="32767" attributes="0"/>
+                                          <Component id="txtMontoN" max="32767" attributes="0"/>
                                           <Component id="txtFormaPagoN" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="txtDiaPago" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtMesPago" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtAnioPago" min="-2" pref="52" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -2106,7 +2140,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="84" max="32767" attributes="0"/>
+                  <EmptySpace pref="66" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -2133,8 +2167,10 @@
                   <Component id="jPanel10" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="26" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtFechaPagoN" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDiaPago" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel56" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtMesPago" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAnioPago" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -2169,7 +2205,7 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFechaPagoN">
+        <Component class="javax.swing.JTextField" name="txtDiaPago">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
@@ -2326,6 +2362,16 @@
             </Property>
           </Properties>
         </Component>
+        <Component class="javax.swing.JTextField" name="txtMesPago">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtAnioPago">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jpnEstado">
@@ -2437,16 +2483,35 @@
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="jLabel66" alignment="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel64" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel65" alignment="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel67" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtMotivoE" alignment="0" pref="177" max="32767" attributes="0"/>
-                                      <Component id="txtEstadoE" max="32767" attributes="0"/>
-                                      <Component id="txtFechaTerminoE" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtFechaInicioE" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtMotivoE" alignment="0" pref="177" max="32767" attributes="0"/>
+                                          <Component id="txtEstadoE" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtTerminoDia" pref="49" max="32767" attributes="0"/>
+                                              <Component id="txtInicioDia" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtTerminoMes" pref="49" max="32767" attributes="0"/>
+                                              <Component id="txtInicioMes" max="32767" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="txtInicioAnio" pref="49" max="32767" attributes="0"/>
+                                              <Component id="txtTerminoAnio" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -2471,13 +2536,19 @@
                   <Component id="jPanel12" min="-2" max="-2" attributes="0"/>
                   <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtFechaInicioE" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInicioDia" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel64" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInicioMes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtInicioAnio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtFechaTerminoE" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTerminoDia" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel65" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTerminoMes" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTerminoAnio" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -2507,12 +2578,12 @@
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFechaInicioE">
+        <Component class="javax.swing.JTextField" name="txtInicioDia">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtFechaTerminoE">
+        <Component class="javax.swing.JTextField" name="txtTerminoDia">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
@@ -2644,6 +2715,37 @@
               <Color blue="f4" green="a9" red="3" type="rgb"/>
             </Property>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel68">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="(D&#xed;a/mes/a&#xf1;o)"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtInicioMes">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtInicioAnio">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtInicioAnioActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtTerminoMes">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtTerminoAnio">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

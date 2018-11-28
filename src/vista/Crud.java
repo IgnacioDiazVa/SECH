@@ -82,22 +82,7 @@ public class Crud extends javax.swing.JFrame {
             System.out.println("No se pudo conectar a la base de datos");
         }
         
-        try{
-            String sentencia = "SELECT filial FROM tbl_socio";
-            PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
-            rs = ps.executeQuery();
-            
-            cmbFilialPersonal.addItem("Seleccione filial");
-            
-            while(rs.next()){
-                cmbFilialPersonal.addItem(rs.getString("filial"));
-            }
-            
-            rs.close();
-            
-        }catch(SQLException ex){
-            System.out.println("No se pudo conectar a la base de datos");
-        }
+        
     }
     
     
@@ -112,12 +97,12 @@ public class Crud extends javax.swing.JFrame {
     private void initComponents() {
 
         jpnBarraLateral = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnNuevoSocio = new javax.swing.JButton();
         btnModificarSocio = new javax.swing.JButton();
         btnNuevoPago = new javax.swing.JButton();
         btnNuevoTiempo = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         jpnAgregar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -244,7 +229,7 @@ public class Crud extends javax.swing.JFrame {
         txtPrimeraCuota = new javax.swing.JTextField();
         txtSegundaCuota = new javax.swing.JTextField();
         txtTerceraCuota = new javax.swing.JTextField();
-        txtFechaPagoN = new javax.swing.JTextField();
+        txtDiaPago = new javax.swing.JTextField();
         txtFormaPagoN = new javax.swing.JTextField();
         txtMontoN = new javax.swing.JTextField();
         jLabel56 = new javax.swing.JLabel();
@@ -259,6 +244,8 @@ public class Crud extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jLabel63 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        txtMesPago = new javax.swing.JTextField();
+        txtAnioPago = new javax.swing.JTextField();
         jpnEstado = new javax.swing.JPanel();
         txtBuscarEstado = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
@@ -266,8 +253,8 @@ public class Crud extends javax.swing.JFrame {
         jpnNuevoEstado = new javax.swing.JPanel();
         txtEstadoActual = new javax.swing.JTextField();
         txtMotivoE = new javax.swing.JTextField();
-        txtFechaInicioE = new javax.swing.JTextField();
-        txtFechaTerminoE = new javax.swing.JTextField();
+        txtInicioDia = new javax.swing.JTextField();
+        txtTerminoDia = new javax.swing.JTextField();
         txtEstadoE = new javax.swing.JTextField();
         jLabel64 = new javax.swing.JLabel();
         jLabel65 = new javax.swing.JLabel();
@@ -279,6 +266,11 @@ public class Crud extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jLabel71 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabel68 = new javax.swing.JLabel();
+        txtInicioMes = new javax.swing.JTextField();
+        txtInicioAnio = new javax.swing.JTextField();
+        txtTerminoMes = new javax.swing.JTextField();
+        txtTerminoAnio = new javax.swing.JTextField();
         jpnFondo = new javax.swing.JPanel();
         lbCerrar1 = new javax.swing.JLabel();
         lbMinimizar1 = new javax.swing.JLabel();
@@ -291,14 +283,6 @@ public class Crud extends javax.swing.JFrame {
         jpnBarraLateral.setBackground(new java.awt.Color(3, 169, 244));
         jpnBarraLateral.setForeground(new java.awt.Color(3, 169, 244));
         jpnBarraLateral.setPreferredSize(new java.awt.Dimension(120, 680));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/flecha-izquierda-boton-de-teclado.png"))); // NOI18N
-        jLabel5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-        });
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
 
@@ -362,25 +346,40 @@ public class Crud extends javax.swing.JFrame {
             }
         });
 
+        btnRegresar.setBackground(new java.awt.Color(3, 169, 244));
+        btnRegresar.setForeground(new java.awt.Color(3, 169, 244));
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/flecha-izquierda-boton-de-teclado.png"))); // NOI18N
+        btnRegresar.setBorder(null);
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegresar.setFocusPainted(false);
+        btnRegresar.setFocusable(false);
+        btnRegresar.setOpaque(false);
+        btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegresarMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnBarraLateralLayout = new javax.swing.GroupLayout(jpnBarraLateral);
         jpnBarraLateral.setLayout(jpnBarraLateralLayout);
         jpnBarraLateralLayout.setHorizontalGroup(
             jpnBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnNuevoSocio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jpnBarraLateralLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnNuevoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jpnBarraLateralLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jpnBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5))
+                .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jpnBarraLateralLayout.createSequentialGroup()
                 .addGroup(jpnBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnModificarSocio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnBarraLateralLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jpnBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNuevoTiempo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jpnBarraLateralLayout.setVerticalGroup(
             jpnBarraLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,9 +391,9 @@ public class Crud extends javax.swing.JFrame {
                 .addComponent(btnNuevoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(btnNuevoTiempo, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addGap(31, 31, 31))
         );
@@ -776,6 +775,8 @@ public class Crud extends javax.swing.JFrame {
         btnModificarPersonal.setText("Modificar");
 
         cmbSisPersonal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione SIS", "Endodoncista", "Sin registro", "Cirujano Dentista" }));
+
+        cmbFilialPersonal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione filial", "Punta Arenas", "Puerto Montt", "Santiago", "Temuco", "La Serena", "Ñuble", "Rancagua", "Talca", "Antofagasta", "Iquique" }));
 
         cmbCategoriaPersonal.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccione categoria", "Honorario", "Colaborador", "Activo", "De número", "Estudiantil", "Activo/Director", "Honorario/Director" }));
 
@@ -1241,9 +1242,14 @@ public class Crud extends javax.swing.JFrame {
                                         .addComponent(jLabel57))
                                     .addGap(86, 86, 86)
                                     .addGroup(jpnNuevoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(txtMontoN, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                        .addComponent(txtFechaPagoN)
-                                        .addComponent(txtFormaPagoN)))
+                                        .addComponent(txtMontoN)
+                                        .addComponent(txtFormaPagoN)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnNuevoPagoLayout.createSequentialGroup()
+                                            .addComponent(txtDiaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtMesPago, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtAnioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(jpnNuevoPagoLayout.createSequentialGroup()
                                     .addComponent(txtPrimeraCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(51, 51, 51)
@@ -1251,7 +1257,7 @@ public class Crud extends javax.swing.JFrame {
                                     .addGap(40, 40, 40)
                                     .addComponent(txtTerceraCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         jpnNuevoPagoLayout.setVerticalGroup(
             jpnNuevoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1274,8 +1280,10 @@ public class Crud extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jpnNuevoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaPagoN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel56))
+                    .addComponent(txtDiaPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel56)
+                    .addComponent(txtMesPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAnioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(44, 44, 44)
                 .addGroup(jpnNuevoPagoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFormaPagoN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1394,6 +1402,15 @@ public class Crud extends javax.swing.JFrame {
 
         jSeparator2.setBackground(new java.awt.Color(3, 169, 244));
 
+        jLabel68.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel68.setText("(Día/mes/año)");
+
+        txtInicioAnio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtInicioAnioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jpnNuevoEstadoLayout = new javax.swing.GroupLayout(jpnNuevoEstado);
         jpnNuevoEstado.setLayout(jpnNuevoEstadoLayout);
         jpnNuevoEstadoLayout.setHorizontalGroup(
@@ -1412,15 +1429,28 @@ public class Crud extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnNuevoEstadoLayout.createSequentialGroup()
                                 .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel66)
-                                    .addComponent(jLabel64)
                                     .addComponent(jLabel65)
-                                    .addComponent(jLabel67))
+                                    .addComponent(jLabel67)
+                                    .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel68)
+                                        .addComponent(jLabel64)))
                                 .addGap(86, 86, 86)
-                                .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtMotivoE, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                    .addComponent(txtEstadoE)
-                                    .addComponent(txtFechaTerminoE)
-                                    .addComponent(txtFechaInicioE))
+                                .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtMotivoE, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                        .addComponent(txtEstadoE))
+                                    .addGroup(jpnNuevoEstadoLayout.createSequentialGroup()
+                                        .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTerminoDia, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                                            .addComponent(txtInicioDia))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTerminoMes, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                                            .addComponent(txtInicioMes))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtInicioAnio, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
+                                            .addComponent(txtTerminoAnio))))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(66, 66, 66))
@@ -1438,12 +1468,18 @@ public class Crud extends javax.swing.JFrame {
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaInicioE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel64))
-                .addGap(44, 44, 44)
+                    .addComponent(txtInicioDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel64)
+                    .addComponent(txtInicioMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInicioAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(jLabel68)
+                .addGap(18, 18, 18)
                 .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaTerminoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel65))
+                    .addComponent(txtTerminoDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel65)
+                    .addComponent(txtTerminoMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTerminoAnio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(45, 45, 45)
                 .addGroup(jpnNuevoEstadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEstadoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1516,13 +1552,6 @@ public class Crud extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
-        Home home = new Home();
-        home.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jLabel5MouseClicked
 
     private void MoverMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MoverMousePressed
         x = evt.getX();
@@ -1627,6 +1656,14 @@ public class Crud extends javax.swing.JFrame {
         jpnAgregar.setVisible(false);
     }//GEN-LAST:event_btnNuevoTiempoMouseClicked
 
+    private void txtInicioAnioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInicioAnioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInicioAnioActionPerformed
+
+    private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresarMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1678,6 +1715,7 @@ public class Crud extends javax.swing.JFrame {
     public javax.swing.JButton btnNuevoSocio;
     public javax.swing.JButton btnNuevoTiempo;
     public javax.swing.JButton btnReestablecer;
+    public javax.swing.JButton btnRegresar;
     public javax.swing.JComboBox cmbCategoria;
     public javax.swing.JComboBox cmbCategoriaLab;
     public javax.swing.JComboBox cmbCategoriaPersonal;
@@ -1732,7 +1770,6 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -1752,6 +1789,7 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
     private javax.swing.JLabel jLabel67;
+    private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
@@ -1787,6 +1825,7 @@ public class Crud extends javax.swing.JFrame {
     private javax.swing.JLabel lbMinimizar;
     private javax.swing.JLabel lbMinimizar1;
     public javax.swing.JTextField txtAnio;
+    public javax.swing.JTextField txtAnioPago;
     public javax.swing.JTextField txtApellidoMaterno;
     public javax.swing.JTextField txtApellidoPaterno;
     public javax.swing.JTextField txtAppMat;
@@ -1799,17 +1838,19 @@ public class Crud extends javax.swing.JFrame {
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtCorreoPersonal;
     public javax.swing.JTextField txtDia;
+    public javax.swing.JTextField txtDiaPago;
     public javax.swing.JTextField txtDigitoV;
     public javax.swing.JTextField txtDireccion;
     public javax.swing.JTextField txtDireccionLab;
     public javax.swing.JTextField txtDvPersonal;
     public javax.swing.JTextField txtEstadoActual;
     public javax.swing.JTextField txtEstadoE;
-    public javax.swing.JTextField txtFechaInicioE;
-    public javax.swing.JTextField txtFechaPagoN;
-    public javax.swing.JTextField txtFechaTerminoE;
     public javax.swing.JTextField txtFormaPagoN;
+    public javax.swing.JTextField txtInicioAnio;
+    public javax.swing.JTextField txtInicioDia;
+    public javax.swing.JTextField txtInicioMes;
     public javax.swing.JTextField txtMes;
+    public javax.swing.JTextField txtMesPago;
     public javax.swing.JTextField txtMontoN;
     public javax.swing.JTextField txtMotivoE;
     public javax.swing.JTextField txtNomClinica;
@@ -1834,6 +1875,9 @@ public class Crud extends javax.swing.JFrame {
     public javax.swing.JTextField txtTelefono;
     public javax.swing.JTextField txtTelefonoLab;
     public javax.swing.JTextField txtTerceraCuota;
+    public javax.swing.JTextField txtTerminoAnio;
+    public javax.swing.JTextField txtTerminoDia;
+    public javax.swing.JTextField txtTerminoMes;
     public javax.swing.JTextField txtWeb;
     // End of variables declaration//GEN-END:variables
 }

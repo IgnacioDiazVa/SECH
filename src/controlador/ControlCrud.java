@@ -13,10 +13,12 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.CuotaSocial;
 import modelo.Laboral;
 import modelo.Socio;
 import modelo.Universidad;
 import vista.Crud;
+import vista.Home;
 
 /**
  *
@@ -28,6 +30,8 @@ public class ControlCrud implements ActionListener{
     private Crud crud;
     private Universidad uni;
     private Laboral lab;
+    private Home home;
+    private CuotaSocial cuota;
     
         
     
@@ -42,6 +46,7 @@ public class ControlCrud implements ActionListener{
         this.crud.btnNuevoSocio.addActionListener(this); 
         this.crud.txtCelular.addActionListener(this);
         this.crud.cmbCategoria.addActionListener(this);
+        this.crud.btnRegresar.addActionListener(this);
 
 //        this.crud.btnModificarSocio.addActionListener(this);
 //        this.crud.btnNuevoPago.addActionListener(this);
@@ -60,6 +65,18 @@ public class ControlCrud implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e){
+        
+        if(e.getSource()==crud.btnRegresar){
+            home = new Home();
+            nuevo = new Socio();
+            cuota = new CuotaSocial();
+            uni = new Universidad();
+            lab = new Laboral();
+            ControlHome ctrlHo = new ControlHome(home, nuevo, cuota, uni, lab);
+            crud.dispose();
+            ctrlHo.iniciar();
+            home.setVisible(true);
+        }
         
         if(e.getSource() == crud.cmbCategoria){
            if(crud.cmbCategoria.getSelectedIndex()== 1){

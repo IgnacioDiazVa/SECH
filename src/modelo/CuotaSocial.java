@@ -5,7 +5,11 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +23,8 @@ public class CuotaSocial {
 	//Atributos con claves foráneas en la base de datos
 	private Integer cuotaRut;
 	private String cuotaCategoria;
+        
+        private int aux;
         
         public CuotaSocial(){
             
@@ -72,5 +78,75 @@ public class CuotaSocial {
         this.cuotaCategoria = cuotaCategoria;
     }
         
-        
+    public boolean agregar(CuotaSocial nuevo){
+          String sentencia = "INSERT INTO tbl_cuota_social (fecha_pago,  monto,  forma_pago,  tbl_socio_rut,  tbl_socio_categoria)" +
+			  "VALUES(?,?,?,?,?)";
+          
+          try{
+              if(!buscar((nuevo.getCuotaRut()),(nuevo.getFechaPago()))){
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+              ps.setDate(1, nuevo.getFechaPago());
+              ps.setInt(2, nuevo.getMonto());
+              ps.setString(3, nuevo.getFormaPago());
+              ps.setInt(4, nuevo.getCuotaRut());
+              ps.setString(5, nuevo.getCuotaCategoria());
+              ps.execute();
+              return true;
+              }else{
+                  System.out.println("El socio ya existe");
+              }
+          }catch (SQLException e){
+              System.out.println("No se pudo agregar");
+          }
+          
+          return false;
+      } 
+    
+    public boolean buscar(int rut, Date pago){
+         String sentencia = "SELECT * FROM tbl_cuota_social WHERE tbl_socio_rut = ? AND fecha_pago = ?";
+         ResultSet rs;
+         try{
+             PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+             ps.setInt(1, rut);
+             ps.setDate(2, pago);
+             rs = ps.executeQuery();
+             
+             if(rs.next()){
+                 System.out.println("Encontrado");
+                 return true;
+             }else{
+                 System.out.println("No se encontró");
+                 return false;
+             }
+         }catch(SQLException e){
+             System.out.println("No se pudo verificar");
+         }
+         
+         return false;
+      }
+    
+    public int buscar(int rut, int anio){
+         String sentencia = "SELECT fecha_pago FROM tbl_cuota_social WHERE tbl_socio_rut = ? AND YEAR(fecha_pago) = ?";
+         ResultSet rs;
+         ArrayList cuotasSocio = new ArrayList();
+         CuotaSocial cuota;
+         try{
+             PreparedStatement ps = Conexion.obtenerInstancia().prepareStatement(sentencia);
+             ps.setInt(1, rut);
+             ps.setInt(2, anio);
+             rs = ps.executeQuery();
+             
+             while(rs.next()){
+                cuota = new CuotaSocial();
+                cuota.setFechaPago(rs.getDate(1));
+                cuotasSocio.add(cuota);
+             }
+         }catch(SQLException e){
+             System.out.println("No se pudo verificar");
+         }
+         
+         return cuotasSocio.size();
+      }
+    
+    
 }
