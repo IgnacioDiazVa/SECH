@@ -655,14 +655,15 @@ public class Socio {
           return listaUni;
       }
       
-      public ArrayList<Socio> listAlDia(int numeroMes, int anio){
-          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv, categoria, filial\n" +
-                             "FROM tbl_socio\n" +
-                             "JOIN tbl_cuota_social\n" +
-                             "on tbl_socio.rut=tbl_cuota_social.tbl_socio_rut\n" +
-                             "where YEAR(fecha_pago)=?\n" +
-                             "group by tbl_socio_rut\n" +
-                             "Having count(tbl_socio_rut)>=?;";
+      public ArrayList<Socio> listAlDia(int anio, String mesPago){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv,\n" +
+                                "categoria, filial\n" +
+                                "FROM tbl_socio socio\n" +
+                                "JOIN (SELECT tbl_socio_rut\n" +
+                                "FROM tbl_cuota_social\n" +
+                                "where YEAR(fecha_pago)=? AND mes_pago=?)\n" +
+                                "AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut;";
           
           ArrayList listaAlDia = new ArrayList();
           Socio socio;
@@ -670,7 +671,7 @@ public class Socio {
           try{
               PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
               ps.setInt(1, anio);
-              ps.setInt(2, numeroMes);
+              ps.setString(2, mesPago);
               rs = ps.executeQuery();
               while(rs.next()){
                   socio = new Socio();
@@ -685,6 +686,8 @@ public class Socio {
               }
               
           }catch (SQLException e){
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
               System.out.println("No se puedo obtener los datos");
           }
           
@@ -713,57 +716,17 @@ public class Socio {
       }
       
       
-     public ArrayList<Socio> listCuotasTres(String categoria, String filial, int anio,  int condicion){
+     public ArrayList<Socio> listUnaCondicion(String categoria, String filial, int anio,  int condicion){
           String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
-                                "FROM tbl_socio\n" +
-                                "WHERE categoria=? AND filial=? AND rut NOT IN (SELECT tbl_socio_rut\n" +
-                                "FROM tbl_cuota_social\n" +
-                                "where YEAR(fecha_pago)=?\n" +
-                                "group by tbl_socio_rut\n" +
-                                "Having count(tbl_socio_rut)>=?)";
-          
-          ArrayList listaCuotaTres = new ArrayList();
-          Socio socio;
-          ResultSet rs;
-          try{
-              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
-              ps.setString(1, categoria);
-              ps.setString(2, filial);
-              ps.setInt(3, anio);
-              ps.setInt(4, condicion);
-              rs = ps.executeQuery();
-              while(rs.next()){
-                  socio = new Socio();
-                  socio.setNombres(rs.getString(1));
-                  socio.setApellidoPaterno(rs.getString(2));
-                  socio.setApellidoMaterno(rs.getString(3));
-                  socio.setCorreoElectronico(rs.getString(4));
-                  socio.setCelular(rs.getString(5));
-                  socio.setCategoria(rs.getString(6));
-                  socio.setFilial(rs.getString(7));
-                  listaCuotaTres.add(socio);
-              }
-              
-          }catch (SQLException e){
-              System.out.println("No se puedo obtener los datos");
-              System.out.println ("El error es: " + e.getMessage());
-              e.printStackTrace();
-          }
-          return listaCuotaTres;
-      } 
-     
-     public ArrayList<Socio> listCuotasTresDos(String categoria, String filial, int anio,  int condicion){
-          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
-                                "FROM tbl_socio socio\n" +
-                                "JOIN (SELECT tbl_socio_rut\n" +
-                                "FROM tbl_cuota_social\n" +
-                                "where YEAR(fecha_pago)=? \n" +
-                                "group by tbl_socio_rut\n" +
-                                "Having count(tbl_socio_rut)=?) AS cuotas\n" +
+                                "FROM tbl_socio AS socio\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=?) AS cuotas\n" +
                                 "on socio.rut=cuotas.tbl_socio_rut\n" +
                                 "WHERE categoria=? AND filial=?";
           
-          ArrayList listaCuotaTresDos = new ArrayList();
+          ArrayList listaUnaCondicion = new ArrayList();
           Socio socio;
           ResultSet rs;
           try{
@@ -782,7 +745,7 @@ public class Socio {
                   socio.setCelular(rs.getString(5));
                   socio.setCategoria(rs.getString(6));
                   socio.setFilial(rs.getString(7));
-                  listaCuotaTresDos.add(socio);
+                  listaUnaCondicion.add(socio);
               }
               
           }catch (SQLException e){
@@ -790,6 +753,453 @@ public class Socio {
               System.out.println ("El error es: " + e.getMessage());
               e.printStackTrace();
           }
-          return listaCuotaTresDos;
+          return listaUnaCondicion;
       } 
+     
+     public ArrayList<Socio> listDosCondiciones(String categoria, String filial, int anioPasado, int primeraCondicion, int anio, int segundaCondicion){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio AS socio\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=?) AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=?) AS cuo\n" +
+                                "on socio.rut=cuo.tbl_socio_rut\n" +
+                                "WHERE categoria=? AND filial=?";
+          
+          ArrayList listaDosCondiciones = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anio);
+              ps.setInt(2, segundaCondicion);
+              ps.setInt(3, anioPasado);
+              ps.setInt(4, primeraCondicion);
+              ps.setString(5, categoria);
+              ps.setString(6, filial);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaDosCondiciones.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          return listaDosCondiciones;
+      } 
+     
+     public ArrayList<Socio> listAsambleaDos(int anio, String mesPago){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, rut, dv\n" +
+                             "FROM tbl_socio socio  \n" +
+                             "WHERE categoria=\"Honorario\" OR categoria=\"Activo/Director\"\n" +
+                             "OR categoria=\"Honorario/Director\"";
+          
+          ArrayList listaAsambleaDos = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  listaAsambleaDos.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          
+          String sentenciaDos ="SELECT nombres, apellido_paterno, apellido_materno, rut, dv\n" +
+                                "FROM tbl_socio socio\n" +
+                                "JOIN (SELECT tbl_socio_rut\n" +
+                                "FROM tbl_cuota_social\n" +
+                                "where YEAR(fecha_pago)=? AND mes_pago=?)\n" +
+                                "AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "WHERE categoria=\"Activo\" AND \n" +
+                                "DATEDIFF(fecha_ingreso, NOW())<=-'365'";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaDos);
+              ps.setInt(1, anio);
+              ps.setString(2, mesPago);
+              rs= ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setRut(rs.getInt(4));
+                  socio.setDigitoVerificador(rs.getString(5).charAt(0));
+                  listaAsambleaDos.add(socio);
+              }
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+          }
+          
+          return listaAsambleaDos;
+      }
+     
+    public ArrayList<Socio> listEneFeb(String categoria, String filial, int anio,  int condicion, Date antesD, Date junio, Date octubre, Date marzo, Date mayo){
+          String sentencia = "SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                            "FROM tbl_socio AS socio\n" +
+                            "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                            "WHERE YEAR(fecha_pago)=? \n" +
+                            "GROUP BY tbl_socio_rut\n" +
+                            "HAVING count(tbl_socio_rut)=?) AS cuotas\n" +
+                            "on socio.rut=cuotas.tbl_socio_rut\n" +
+                            "WHERE categoria=? AND filial=? AND fecha_ingreso<=?";
+          
+          ArrayList listaEneFeb = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anio);
+              ps.setInt(2, condicion);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              ps.setDate(5, antesD);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaEneFeb.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaDos = "Select nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio \n" +
+                                "where categoria=? and filial=? \n" +
+                                "and fecha_ingreso between ? and ? and \n" +
+                                "rut NOT IN(SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)>=1)";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaDos);
+              ps.setString(1, categoria);
+              ps.setString(2, filial);
+              ps.setDate(3, junio);
+              ps.setDate(4, octubre);
+              ps.setInt(5, anio);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaEneFeb.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaTres="SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio AS socio\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=1) AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "WHERE categoria=? AND filial=? \n" +
+                                "AND fecha_ingreso between ? and ?";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaTres);
+              ps.setInt(1, anio);
+              ps.setString(2, categoria);
+              ps.setString(3, filial);
+              ps.setDate(4, marzo);
+              ps.setDate(5, mayo);
+              
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaEneFeb.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          return listaEneFeb;
+      } 
+     
+    public ArrayList<Socio> listMarMay(String categoria, String filial, int anio, int anioPasado, Date antesD, Date noviembre, Date febrero, Date junio, Date octubre){
+        String sentencia="SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                            "FROM tbl_socio AS socio\n" +
+                            "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                            "WHERE YEAR(fecha_pago)=? OR YEAR(fecha_pago)=?\n" +
+                            "GROUP BY tbl_socio_rut\n" +
+                            "HAVING count(tbl_socio_rut)=3) AS cuotas\n" +
+                            "on socio.rut=cuotas.tbl_socio_rut\n" +
+                            "WHERE categoria=? AND filial=? AND fecha_ingreso<=?";
+        
+        ArrayList listaMarMay = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anioPasado);
+              ps.setInt(2, anio);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              ps.setDate(5, antesD);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaMarMay.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaDos="Select nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio \n" +
+                                "where categoria=? and filial=? \n" +
+                                "and fecha_ingreso between ? and ? and \n" +
+                                "rut NOT IN(SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)>=1)";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaDos);
+              ps.setString(1, categoria);
+              ps.setString(2, filial);
+              ps.setDate(3, noviembre);
+              ps.setDate(4, febrero);
+              ps.setInt(5, anio);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaMarMay.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaTres="SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio AS socio\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? OR YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=1) AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "WHERE categoria=? AND filial=? \n" +
+                                "AND fecha_ingreso between ? and ?";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaTres);
+              ps.setInt(1, anioPasado);
+              ps.setInt(2, anio);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              ps.setDate(5, junio);
+              ps.setDate(6, octubre);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaMarMay.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          return listaMarMay;
+    }
+    
+    public ArrayList<Socio> listJunOct(String categoria, String filial, int anio, int anioPasado, Date antesD, Date marzo, Date mayo, Date noviembre, Date febrero){
+        String sentencia="SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                            "FROM tbl_socio AS socio\n" +
+                            "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                            "WHERE YEAR(fecha_pago)=? OR YEAR(fecha_pago)=?\n" +
+                            "GROUP BY tbl_socio_rut\n" +
+                            "HAVING count(tbl_socio_rut)=4) AS cuotas\n" +
+                            "on socio.rut=cuotas.tbl_socio_rut\n" +
+                            "WHERE categoria=? AND filial=? AND fecha_ingreso<=?";
+        
+        ArrayList listaJunOct = new ArrayList();
+          Socio socio;
+          ResultSet rs;
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentencia);
+              ps.setInt(1, anioPasado);
+              ps.setInt(2, anio);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              ps.setDate(5, antesD);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaJunOct.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaDos = "Select nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio \n" +
+                                "where categoria=? and filial=? \n" +
+                                "and fecha_ingreso between ? and ? and \n" +
+                                "rut NOT IN(SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)>=1)";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaDos);
+              ps.setString(1, categoria);
+              ps.setString(2, filial);
+              ps.setDate(3, marzo);
+              ps.setDate(4, mayo);
+              ps.setInt(5, anio);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaJunOct.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+          
+          String sentenciaTres="SELECT nombres, apellido_paterno, apellido_materno, correo, celular, categoria, filial\n" +
+                                "FROM tbl_socio AS socio\n" +
+                                "JOIN (SELECT tbl_socio_rut FROM tbl_cuota_social\n" +
+                                "WHERE YEAR(fecha_pago)=? OR YEAR(fecha_pago)=? \n" +
+                                "GROUP BY tbl_socio_rut\n" +
+                                "HAVING count(tbl_socio_rut)=1) AS cuotas\n" +
+                                "on socio.rut=cuotas.tbl_socio_rut\n" +
+                                "WHERE categoria=? AND filial=? \n" +
+                                "AND fecha_ingreso between ? and ?";
+          
+          try{
+              PreparedStatement ps = Conexion.obtenerInstancia().prepareCall(sentenciaTres);
+              ps.setInt(1, anioPasado);
+              ps.setInt(2, anio);
+              ps.setString(3, categoria);
+              ps.setString(4, filial);
+              ps.setDate(5, noviembre);
+              ps.setDate(6, febrero);
+              rs = ps.executeQuery();
+              while(rs.next()){
+                  socio = new Socio();
+                  socio.setNombres(rs.getString(1));
+                  socio.setApellidoPaterno(rs.getString(2));
+                  socio.setApellidoMaterno(rs.getString(3));
+                  socio.setCorreoElectronico(rs.getString(4));
+                  socio.setCelular(rs.getString(5));
+                  socio.setCategoria(rs.getString(6));
+                  socio.setFilial(rs.getString(7));
+                  listaJunOct.add(socio);
+              }
+              
+          }catch (SQLException e){
+              System.out.println("No se puedo obtener los datos");
+              System.out.println ("El error es: " + e.getMessage());
+              e.printStackTrace();
+          }
+
+          
+          return listaJunOct;
+    }
 }

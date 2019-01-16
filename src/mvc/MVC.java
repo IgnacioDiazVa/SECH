@@ -10,6 +10,7 @@ import controlador.ControlCrudEstado;
 import controlador.ControlCrudModi;
 import controlador.ControlCrudPago;
 import controlador.ControlHome;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.Calendar;
 import modelo.Actividad;
@@ -46,12 +47,27 @@ public class MVC {
         home.setVisible(true);
         
 
-//        Calendar calendario = Calendar.getInstance();
-//        int anio = calendario.get(Calendar.MONTH);
-//        System.out.println(anio);
-//        
-          
-        
+        String categoria = "activo";
+                           String filial = "Santiago";
+                           int anioPasado=2017;
+                           int anio=2018;
+                           
+                           
+                           
+                           Integer.toString(anio);
+                           Integer.toString(anioPasado);
+                           Date antesD = Date.valueOf(anioPasado+"-10-31");
+                           Date marzo = Date.valueOf(anio+"-03-01");
+                           Date mayo = Date.valueOf(anio+"-05-31");
+                           Date noviembre = Date.valueOf(anioPasado+"-11-01");
+                           Date febrero = Date.valueOf(anio+"-02-29");
+                           
+                           ctrlHo.junOct(home.jtDatosHome, categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero);
+
+       
     }
+       
+    
+
     
 }

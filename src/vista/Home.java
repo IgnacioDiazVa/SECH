@@ -84,7 +84,7 @@ public class Home extends javax.swing.JFrame {
         cmbUniversidadHome = new javax.swing.JComboBox();
         cmbFilialHome = new javax.swing.JComboBox();
         btnRefrescar = new javax.swing.JButton();
-        btnPdf = new javax.swing.JButton();
+        btnExcel = new javax.swing.JButton();
         btnBusca = new javax.swing.JButton();
         cmbCuotasAdeudadas = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
@@ -289,10 +289,10 @@ public class Home extends javax.swing.JFrame {
         });
         jPanel1.add(btnRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 50, 50, -1));
 
-        btnPdf.setBackground(new java.awt.Color(255, 255, 255));
-        btnPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pdf.png"))); // NOI18N
-        btnPdf.setBorderPainted(false);
-        jPanel1.add(btnPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, -1, 30));
+        btnExcel.setBackground(new java.awt.Color(255, 255, 255));
+        btnExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sobresalir (2).png"))); // NOI18N
+        btnExcel.setBorderPainted(false);
+        jPanel1.add(btnExcel, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, -1, 30));
 
         btnBusca.setText("Buscar");
         jPanel1.add(btnBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 50, -1, -1));
@@ -404,8 +404,8 @@ public class Home extends javax.swing.JFrame {
     public javax.swing.JButton btnAsamblea;
     public javax.swing.JButton btnBusca;
     public javax.swing.JButton btnCrudSocio;
+    public javax.swing.JButton btnExcel;
     public javax.swing.JButton btnMorosos;
-    public javax.swing.JButton btnPdf;
     public javax.swing.JButton btnRefrescar;
     public javax.swing.JButton btnSocioAlDia;
     public javax.swing.JComboBox cmbCategoriaHome;

@@ -497,13 +497,13 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="javax.swing.JButton" name="btnPdf">
+        <Component class="javax.swing.JButton" name="btnExcel">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/pdf.png"/>
+              <Image iconType="3" name="/image/sobresalir (2).png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>

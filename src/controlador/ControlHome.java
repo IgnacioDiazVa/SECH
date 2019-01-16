@@ -7,6 +7,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -45,7 +46,7 @@ public class ControlHome implements ActionListener {
         this.home.btnMorosos.addActionListener(this);
         this.home.btnSocioAlDia.addActionListener(this);
         this.home.btnRefrescar.addActionListener(this);
-        this.home.btnPdf.addActionListener(this);
+        this.home.btnExcel.addActionListener(this);
         this.home.btnCrudSocio.addActionListener(this);
         this.home.cmbCategoriaHome.addActionListener(this);
         this.home.cmbFilialHome.addActionListener(this);
@@ -328,7 +329,7 @@ public class ControlHome implements ActionListener {
         }
     }
     
-    public void tablaAlDia(JTable tablaD, int mes, int anio){
+    public void tablaAlDia(JTable tablaD, int anio, String mesPago){
         DefaultTableModel modeloT = new DefaultTableModel();
         tablaD.setModel(modeloT);
         
@@ -343,23 +344,23 @@ public class ControlHome implements ActionListener {
         
         Object[] columna = new Object[7];
         
-        int numRegistros = nuevo.listAlDia(mes, anio).size();
+        int numRegistros = nuevo.listAlDia(anio, mesPago).size();
         
         for(int i=0; i< numRegistros; i++){
-            columna[0]= nuevo.listAlDia(mes, anio).get(i).getNombres();
-            columna[1]= nuevo.listAlDia(mes, anio).get(i).getApellidoPaterno();
-            columna[2]= nuevo.listAlDia(mes, anio).get(i).getApellidoMaterno();
-            columna[3]= nuevo.listAlDia(mes, anio).get(i).getRut();
-            columna[4]= nuevo.listAlDia(mes, anio).get(i).getDigitoVerificador();
-            columna[5]= nuevo.listAlDia(mes, anio).get(i).getCategoria();
-            columna[6]= nuevo.listAlDia(mes, anio).get(i).getFilial();
+            columna[0]= nuevo.listAlDia(anio, mesPago).get(i).getNombres();
+            columna[1]= nuevo.listAlDia(anio, mesPago).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listAlDia(anio, mesPago).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listAlDia(anio, mesPago).get(i).getRut();
+            columna[4]= nuevo.listAlDia(anio, mesPago).get(i).getDigitoVerificador();
+            columna[5]= nuevo.listAlDia(anio, mesPago).get(i).getCategoria();
+            columna[6]= nuevo.listAlDia(anio, mesPago).get(i).getFilial();
             modeloT.addRow(columna);
         }
     }
     
     //Tablas para las cuota adeudadas de socios por categoria y filial
     
-    public void cuotasTres (JTable tablaD,String categoria, String filial,  int anio, int condicion){
+    public void cuotasUnaCondicion (JTable tablaD,String categoria, String filial,  int anio, int condicion){
         DefaultTableModel modeloT = new DefaultTableModel();
         tablaD.setModel(modeloT);
         
@@ -373,21 +374,21 @@ public class ControlHome implements ActionListener {
         
         Object[] columna = new Object[7];
         
-        int numRegistros = nuevo.listCuotasTres(categoria, filial, anio, condicion).size();
+        int numRegistros = nuevo.listUnaCondicion(categoria, filial, anio, condicion).size();
         
         for(int i=0; i< numRegistros; i++){
-            columna[0]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getNombres();
-            columna[1]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getApellidoPaterno();
-            columna[2]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getApellidoMaterno();
-            columna[3]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getCorreoElectronico();
-            columna[4]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getCelular();
-            columna[5]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getCategoria();
-            columna[6]= nuevo.listCuotasTres(categoria, filial, anio, condicion).get(i).getFilial();
+            columna[0]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getNombres();
+            columna[1]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getCorreoElectronico();
+            columna[4]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getCelular();
+            columna[5]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getCategoria();
+            columna[6]= nuevo.listUnaCondicion(categoria, filial, anio, condicion).get(i).getFilial();
             modeloT.addRow(columna);
         }
     }
     
-    public void cuotasTresDos(JTable tablaD,String categoria, String filial,  int anio, int condicion){
+    public void cuotasDosCondiciones(JTable tablaD,String categoria, String filial, int anioPasado, int primeraCondicion, int anio, int segundaCondicion){
         DefaultTableModel modeloT = new DefaultTableModel();
         tablaD.setModel(modeloT);
         
@@ -401,16 +402,125 @@ public class ControlHome implements ActionListener {
         
         Object[] columna = new Object[7];
         
-        int numRegistros = nuevo.listCuotasTresDos(categoria, filial, anio, condicion).size();
+        int numRegistros = nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).size();
         
         for(int i=0; i< numRegistros; i++){
-            columna[0]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getNombres();
-            columna[1]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getApellidoPaterno();
-            columna[2]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getApellidoMaterno();
-            columna[3]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getCorreoElectronico();
-            columna[4]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getCelular();
-            columna[5]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getCategoria();
-            columna[6]= nuevo.listCuotasTresDos(categoria, filial, anio, condicion).get(i).getFilial();
+            columna[0]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getNombres();
+            columna[1]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getCorreoElectronico();
+            columna[4]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getCelular();
+            columna[5]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getCategoria();
+            columna[6]= nuevo.listDosCondiciones(categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion).get(i).getFilial();
+            modeloT.addRow(columna);
+        }
+    }
+    
+    public void eneFeb (JTable tablaD, String categoria, String filial, int anio, int condicion, Date antesD, Date junio, Date octubre, Date marzo, Date mayo){
+        DefaultTableModel modeloT = new DefaultTableModel();
+        tablaD.setModel(modeloT);
+        
+        modeloT.addColumn("Nombres");
+        modeloT.addColumn("Apellido Paterno");
+        modeloT.addColumn("Apellido Materno");
+        modeloT.addColumn("Correo");
+        modeloT.addColumn("Celular");
+        modeloT.addColumn("Categoría");
+        modeloT.addColumn("Filial");
+        
+        Object[] columna = new Object[7];
+        
+        int numRegistros = nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).size();
+        
+        for(int i=0; i< numRegistros; i++){
+            columna[0]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getNombres();
+            columna[1]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getCorreoElectronico();
+            columna[4]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getCelular();
+            columna[5]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getCategoria();
+            columna[6]= nuevo.listEneFeb(categoria, filial, anio, condicion, antesD, junio, octubre, marzo, mayo).get(i).getFilial();
+            modeloT.addRow(columna);
+        }
+    }
+    
+    public void marMay (JTable tablaD, String categoria, String filial, int anio, int anioPasado, Date antesD, Date noviembre, Date febrero, Date junio, Date octubre){
+        DefaultTableModel modeloT = new DefaultTableModel();
+        tablaD.setModel(modeloT);
+        
+        modeloT.addColumn("Nombres");
+        modeloT.addColumn("Apellido Paterno");
+        modeloT.addColumn("Apellido Materno");
+        modeloT.addColumn("Correo");
+        modeloT.addColumn("Celular");
+        modeloT.addColumn("Categoría");
+        modeloT.addColumn("Filial");
+        
+        Object[] columna = new Object[7];
+        
+        int numRegistros = nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).size();
+        
+        for(int i=0; i< numRegistros; i++){
+            columna[0]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getNombres();
+            columna[1]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getCorreoElectronico();
+            columna[4]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getCelular();
+            columna[5]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getCategoria();
+            columna[6]= nuevo.listMarMay(categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre).get(i).getFilial();
+            modeloT.addRow(columna);
+        }
+    }
+    
+    public void junOct (JTable tablaD, String categoria, String filial, int anio, int anioPasado, Date antesD, Date marzo, Date mayo, Date noviembre, Date febrero){
+        DefaultTableModel modeloT = new DefaultTableModel();
+        tablaD.setModel(modeloT);
+        
+        modeloT.addColumn("Nombres");
+        modeloT.addColumn("Apellido Paterno");
+        modeloT.addColumn("Apellido Materno");
+        modeloT.addColumn("Correo");
+        modeloT.addColumn("Celular");
+        modeloT.addColumn("Categoría");
+        modeloT.addColumn("Filial");
+        
+        Object[] columna = new Object[7];
+        
+        int numRegistros = nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).size();
+        
+        for(int i=0; i< numRegistros; i++){
+            columna[0]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getNombres();
+            columna[1]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getCorreoElectronico();
+            columna[4]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getCelular();
+            columna[5]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getCategoria();
+            columna[6]= nuevo.listJunOct(categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero).get(i).getFilial();
+            modeloT.addRow(columna);
+        }
+    }
+    //Tablas para asambleas
+    public void asambleaDos(JTable tablaD, int anio, String mesPago){
+        DefaultTableModel modeloT = new DefaultTableModel();
+        tablaD.setModel(modeloT);
+        
+        modeloT.addColumn("Nombres");
+        modeloT.addColumn("Apellido Paterno");
+        modeloT.addColumn("Apellido Materno");
+        modeloT.addColumn("Rut");
+        modeloT.addColumn("Digito verificador");
+        
+        
+        Object[] columna = new Object[5];
+        
+        int numRegistros = nuevo.listAsambleaDos(anio, mesPago).size();
+        
+        for(int i=0; i< numRegistros; i++){
+            columna[0]= nuevo.listAsambleaDos(anio, mesPago).get(i).getNombres();
+            columna[1]= nuevo.listAsambleaDos(anio, mesPago).get(i).getApellidoPaterno();
+            columna[2]= nuevo.listAsambleaDos(anio, mesPago).get(i).getApellidoMaterno();
+            columna[3]= nuevo.listAsambleaDos(anio, mesPago).get(i).getRut();
+            columna[4]= nuevo.listAsambleaDos(anio, mesPago).get(i).getDigitoVerificador();
             modeloT.addRow(columna);
         }
     }
@@ -419,75 +529,154 @@ public class ControlHome implements ActionListener {
     public void actionPerformed(ActionEvent e){
         if(e.getSource()==home.btnMorosos){
             if(categoria() && filial() && cuotasAdeudadas()){
-                if(cantidadCuotasPagadas()< home.cmbCuotasAdeudadas.getSelectedIndex()){
-                   JOptionPane.showMessageDialog(null, "No existe ningún registro");
-                }else{
                     if(home.cmbCuotasAdeudadas.getSelectedIndex()==1){
-                       if(numeroMes()==2 || numeroMes()==3 || numeroMes()==4){//Igual a uno con QUERY 1
+                       if(numeroMes()==0 || numeroMes()==1){
+                          int primeraCondicion=2; 
+                          int anioPasado = numeroAnio()-1;
                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
                           String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 1;
-                          cuotasTres(home.jtDatosHome, categoria, filial, anio, condicion);
                           
+                          Integer.toString(anioPasado);
+                          Date antesD = Date.valueOf(anioPasado+"-02-29");
+                          Date junio = Date.valueOf(anioPasado+"-06-01");
+                          Date octubre = Date.valueOf(anioPasado+"-10-31");
+                          Date marzo = Date.valueOf(anioPasado+"-03-01");
+                          Date mayo = Date.valueOf(anioPasado+"-05-31");
+                          
+                          eneFeb(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion, antesD, junio, octubre, marzo, mayo);
                        }
-                       if(numeroMes()== 5 || numeroMes()== 6 || numeroMes()== 7 || numeroMes()== 8 || numeroMes()== 9){//igual a uno con QUERY 2
-                          String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
-                          String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 1;
-                          cuotasTresDos(home.jtDatosHome, categoria, filial, anio, condicion); 
+                       if(numeroMes()==2 || numeroMes()==3 || numeroMes()==4){
+                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                           String filial = home.cmbFilialHome.getSelectedItem().toString(); 
+                           int anioPasado=numeroAnio()-1;
+                           int anio=numeroAnio();
+                           
+                           Integer.toString(anioPasado);
+                           Integer.toString(anio);
+                           Date antesD = Date.valueOf(anioPasado+"-05-31");
+                           Date noviembre = Date.valueOf(anioPasado+"-11-01");
+                           Date febrero = Date.valueOf(anio+"-02-29");
+                           Date junio = Date.valueOf(anioPasado+"-06-01");
+                           Date octubre = Date.valueOf(anioPasado+"-10-31");
+                           
+                           marMay(home.jtDatosHome, categoria, filial, anio, anioPasado, antesD, noviembre, febrero, junio, octubre);
                        }
-                       if(numeroMes()== 10 ||numeroMes()== 11){//igual a dos con QUERY 2
-                          String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
-                          String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 2;
-                          cuotasTresDos(home.jtDatosHome, categoria, filial, anio, condicion);
+                       if(numeroMes()==5 || numeroMes()==6 || numeroMes()==7 || numeroMes()==8 || numeroMes()==9){
+                           
+                           int anioPasado=numeroAnio()-1;
+                           int anio=numeroAnio();
+                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                           String filial = home.cmbFilialHome.getSelectedItem().toString();
+                           
+                           Integer.toString(anio);
+                           Integer.toString(anioPasado);
+                           Date antesD = Date.valueOf(anioPasado+"-10-31");
+                           Date marzo = Date.valueOf(anio+"-03-01");
+                           Date mayo = Date.valueOf(anio+"-05-31");
+                           Date noviembre = Date.valueOf(anioPasado+"-11-01");
+                           Date febrero = Date.valueOf(anio+"-02-29");
+                           
+                           junOct(home.jtDatosHome, categoria, filial, anio, anioPasado, antesD, marzo, mayo, noviembre, febrero);
                        }
+                       if(numeroMes()==10 || numeroMes()==11){
+                           int primeraCondicion=3;
+                           int segundaCondicion=2;
+                           int anioPasado=numeroAnio()-1;
+                           int anio=numeroAnio();
+                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                           String filial = home.cmbFilialHome.getSelectedItem().toString();
+                           cuotasDosCondiciones(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion);
+                       }
+                       
                     }
                     if(home.cmbCuotasAdeudadas.getSelectedIndex()==2){
-                       if(numeroMes()== 5 || numeroMes()== 6 || numeroMes()== 7 || numeroMes()== 8 || numeroMes()== 9){//igual o mayor a uno con QUERY 1
+                       if(numeroMes()==0 || numeroMes()==1){
+                          int primeraCondicion=1; 
+                          int anioPasado = numeroAnio()-1; 
                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
                           String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 1;
-                          cuotasTres(home.jtDatosHome, categoria, filial, anio, condicion);
+                          cuotasUnaCondicion(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion);
                        }
-                       if(numeroMes()== 10 ||numeroMes()== 11){//igual a uno con QUERY 2
+                       if(numeroMes()==2 || numeroMes()==3 || numeroMes()==4){
+                          int primeraCondicion=2;
+                          int anioPasado=numeroAnio()-1;
                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
                           String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 1;
-                          cuotasTresDos(home.jtDatosHome, categoria, filial, anio, condicion); 
+                          cuotasUnaCondicion(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion);
+                          
+                       }
+                       if(numeroMes()==5 || numeroMes()==6 || numeroMes()==7 || numeroMes()==8 || numeroMes()==9){
+                          int primeraCondicion=3;
+                          int anioPasado=numeroAnio()-1;
+                          String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                          String filial = home.cmbFilialHome.getSelectedItem().toString();
+                          cuotasUnaCondicion(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion);
+                       }
+                       if(numeroMes()==10 || numeroMes()==11){
+                          int primeraCondicion=3;
+                          int segundaCondicion=1;
+                          int anioPasado=numeroAnio()-1;
+                          int anio=numeroAnio();
+                          String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                          String filial = home.cmbFilialHome.getSelectedItem().toString();
+                          cuotasDosCondiciones(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion, anio, segundaCondicion);
                        }
                     }
                     if(home.cmbCuotasAdeudadas.getSelectedIndex()==3){
-                       if(numeroMes()== 10 || numeroMes()== 11){//igual o mayor a uno con QUERY 1
+                       if(numeroMes()==0 || numeroMes()==1){
+                           int primeraCondicion=0; //esta va con otra query
+                           int anioPasado=numeroAnio()-1;
+                       }
+                       if(numeroMes()==2 || numeroMes()==3 || numeroMes()==4){
+                           int primeraCondicion=1;
+                           int anioPasado=numeroAnio()-1;
+                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
+                           String filial = home.cmbFilialHome.getSelectedItem().toString();
+                           cuotasUnaCondicion(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion);
+                       }
+                       if(numeroMes()==5 || numeroMes()==6 || numeroMes()==7 || numeroMes()==8 || numeroMes()==9){
+                          int primeraCondicion=2;
+                          int anioPasado=numeroAnio()-1;
                           String categoria = home.cmbCategoriaHome.getSelectedItem().toString();
                           String filial = home.cmbFilialHome.getSelectedItem().toString();
-                          int anio = numeroAnio();
-                          int condicion = 1;
-                          cuotasTres(home.jtDatosHome, categoria, filial, anio, condicion);
+                          cuotasUnaCondicion(home.jtDatosHome, categoria, filial, anioPasado, primeraCondicion);
+                           
+                       }
+                       if(numeroMes()==10 || numeroMes()==11){
+                          int primeraCondicion=3;
+                          int segundaCondicion=0; //esta va con otra query
+                          int anioPasado=numeroAnio()-1;
+                          int anio=numeroAnio();
+                          
                        }
                     }
-                }
             }else{
-                JOptionPane.showMessageDialog(null, "Debe de seleccionar categoria, filial y la cantidad de cuotas adeudadas para realizar la búsqueda");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una opción en categoría, filial y cuotas adeudadas");
             }
+            
         }
         
         if(e.getSource()==home.btnAsamblea){
            if(numeroMes()==0 || numeroMes()==1){
-               
+               int anio = numeroAnio() - 1;
+               String mesPago = mes();
+               asambleaDos(home.jtDatosHome, anio, mesPago);
            }
            if(numeroMes()==2 || numeroMes()==3 || numeroMes()==4){
-               
+               int anio = numeroAnio();
+               String mesPago = mes();
+               asambleaDos(home.jtDatosHome, anio, mesPago);
            } 
            if(numeroMes()== 5 || numeroMes()== 6 || numeroMes()== 7 || numeroMes()== 8 || numeroMes()== 9){
-               
+               int anio = numeroAnio();
+               String mesPago = mes();
+               asambleaDos(home.jtDatosHome, anio, mesPago);
            }
            if(numeroMes()== 10 ||numeroMes()== 11){
+               int anio = numeroAnio();
+               String mesPago = mes();
+               System.out.println(anio + mesPago);
+               asambleaDos(home.jtDatosHome, anio, mesPago);
                
            }
            
@@ -522,9 +711,15 @@ public class ControlHome implements ActionListener {
         }
         
         if(e.getSource()==home.btnSocioAlDia){
-            int anio = numeroAnio();
-            int numeroMes = cantidadCuotasPagadas();
-            tablaAlDia(home.jtDatosHome, numeroMes, anio);
+            if(numeroMes()==0 || numeroMes()==1){
+            int anio = numeroAnio() - 1;
+            String mesPago = mes();
+            tablaAlDia(home.jtDatosHome, anio, mesPago);
+            }else{
+               int anio = numeroAnio();
+               String mesPago = mes();
+               tablaAlDia(home.jtDatosHome, anio, mesPago); 
+            }
         }
         
         if(e.getSource()==home.btnBusca){
@@ -644,6 +839,12 @@ public class ControlHome implements ActionListener {
             }
         }
         
+        if(e.getSource()==home.btnRefrescar){
+            refrescar();
+        }
+        
+        
+        
     }
     
     private boolean categoria(){
@@ -683,6 +884,14 @@ public class ControlHome implements ActionListener {
         return anio;
     }
     
+    private void refrescar(){
+        home.cmbCategoriaHome.setSelectedIndex(0);
+        home.cmbFilialHome.setSelectedIndex(0);
+        home.cmbSisHome.setSelectedIndex(0);
+        home.cmbUniversidadHome.setSelectedIndex(0);
+        home.cmbCuotasAdeudadas.setSelectedIndex(0);
+        home.txtBuscarHome.setText("");
+    }
     
     private int cantidadCuotasPagadas(){
     int mes = numeroMes();
@@ -726,6 +935,51 @@ public class ControlHome implements ActionListener {
             break;
         default:
             resultado = 0;
+    }
+    return resultado;
+    }
+    
+    private String mes(){
+    int mes = numeroMes();
+    String resultado = null;
+    switch(mes){
+        case(0):
+            resultado ="octubre";
+            break;
+        case(1):
+            resultado ="octubre";
+            break;
+        case(2):
+            resultado ="febrero";
+            break;
+        case(3):
+            resultado ="febrero";
+            break;
+        case(4):
+            resultado ="febrero";
+            break;
+        case(5):
+            resultado ="mayo";
+            break;
+        case(6):
+            resultado ="mayo";
+            break;
+        case(7):
+            resultado ="mayo";
+            break;
+        case(8):
+            resultado ="mayo";
+            break;
+        case(9):
+            resultado ="mayo";
+            break;
+        case(10):
+            resultado ="octubre";
+            break;
+        case(11):
+            resultado ="octubre";
+            break;
+        
     }
     return resultado;
     }
